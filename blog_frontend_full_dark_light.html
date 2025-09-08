@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyBlog — Modern Frontend</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { inter: ["Inter", "ui-sans-serif", "system-ui"] },
+          boxShadow: {
+            soft: "0 10px 30px -12px rgb(0 0 0 / 0.25)",
+            glow: "0 8px 24px -6px rgb(99 102 241 / .5)",
+          },
+          backgroundImage: {
+            'hero-gradient': 'radial-gradient(1200px 500px at 10% -10%, rgba(79,70,229,.35), transparent 60%), radial-gradient(900px 400px at 90% -20%, rgba(236,72,153,.35), transparent 60%), linear-gradient(180deg, #0f172a, #0b1220 60%)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    .noise { position: relative; }
+    .noise:before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.04; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.45"/></svg>'); }
+    .link-underline { background-size: 0 2px; background-image: linear-gradient(currentColor,currentColor); background-repeat: no-repeat; background-position: 0 100%; transition: background-size .3s ease; }
+    .link-underline:hover { background-size: 100% 2px; }
+
+    body.light { color: #0f172a; background-color: #f8fafc; }
+    body.light .bg-slate-950 { background-color: #f8fafc !important; }
+    body.light .text-slate-100 { color: #0f172a !important; }
+    body.light .text-slate-300 { color: #334155 !important; }
+    body.light .text-slate-400 { color: #475569 !important; }
+    body.light .bg-white\/5 { background: rgba(0,0,0,.04) !important; }
+    body.light .ring-white\/10 { --tw-ring-color: rgb(0 0 0 / 0.08) !important; }
+    body.light .border-white\/10 { border-color: rgb(0 0 0 / 0.08) !important; }
+    body.light .supports-\[backdrop-filter\]\:bg-slate-900\/50 { background-color: rgba(255,255,255,.6) !important; }
+    body.light #hero { background-image: radial-gradient(1200px 500px at 10% -10%, rgba(79,70,229,.15), transparent 60%), radial-gradient(900px 400px at 90% -20%, rgba(236,72,153,.15), transparent 60%), linear-gradient(180deg, #ffffff, #f8fafc 60%) !important; }
+    body.light .parallax-blob { filter: blur(28px) saturate(120%); opacity: .35; }
+
+    .will-change-transform { will-change: transform; }
+  </style>
+</head>
+
+<body class="font-inter text-slate-100 bg-slate-950 selection:bg-indigo-500/40 selection:text-white">
+  <!-- Navbar -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-slate-900/50 bg-slate-900/70 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2">
+          <span class="text-xl font-extrabold bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">MyBlog</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8 text-sm text-slate-200">
+          <a class="link-underline hover:text-white" href="#">Home</a>
+          <a class="link-underline hover:text-white" href="#categories">Categories</a>
+          <a class="link-underline hover:text-white" href="#featured">Featured</a>
+          <a class="link-underline hover:text-white" href="#latest">Latest</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <button id="themeToggle" class="inline-flex items-center gap-2 rounded-full bg-white/5 ring-1 ring-white/10 px-3 py-1.5 text-sm">
+            <i id="themeIcon" class='bx bx-moon text-lg text-slate-200'></i>
+            <span class="hidden sm:inline text-slate-200">Dark</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="noise bg-hero-gradient pt-28 pb-20 overflow-hidden" id="hero">
+    <div class="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-fuchsia-500/20 parallax-blob"></div>
+    <div class="pointer-events-none absolute -bottom-28 -right-20 w-80 h-80 rounded-full bg-indigo-500/20 parallax-blob"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">
+        Learn, build & grow with <span class="bg-gradient-to-r from-fuchsia-400 via-indigo-400 to-sky-400 bg-clip-text text-transparent">developer-grade articles</span>
+      </h1>
+      <p class="mt-4 text-slate-300 max-w-xl">Actionable tutorials on Laravel, JS, AI, performance, and product thinking.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-slate-400">
+      © 2025 MyBlog. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    const THEME_KEY = 'myblog-theme';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const saved = localStorage.getItem(THEME_KEY);
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+
+    function applyTheme(mode) {
+      if (mode === 'light') {
+        document.body.classList.add('light');
+        document.documentElement.classList.remove('dark');
+        themeIcon.className = 'bx bx-sun text-lg text-yellow-400';
+        themeToggle.querySelector('span').textContent = 'Light';
+      } else {
+        document.body.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        themeIcon.className = 'bx bx-moon text-lg text-slate-200';
+        themeToggle.querySelector('span').textContent = 'Dark';
+      }
+      localStorage.setItem(THEME_KEY, mode);
+    }
+
+    applyTheme(saved || (prefersDark.matches ? 'dark' : 'light'));
+
+    themeToggle.addEventListener('click', () => {
+      const current = localStorage.getItem(THEME_KEY) || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>

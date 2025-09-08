@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyBlog — IT Inventions & Revolution</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { inter: ["Inter", "ui-sans-serif", "system-ui"] },
+          boxShadow: {
+            soft: "0 10px 30px -12px rgb(0 0 0 / 0.1)",
+            glow: "0 8px 24px -6px rgb(59 130 246 / .4)",
+          },
+          backgroundImage: {
+            'hero-gradient-light': 'radial-gradient(1000px 500px at 10% -10%, rgba(59,130,246,.25), transparent 70%), radial-gradient(900px 400px at 90% -20%, rgba(236,72,153,.25), transparent 70%), linear-gradient(180deg, #f9fafb, #f3f4f6 80%)',
+            'hero-gradient-dark': 'radial-gradient(1200px 500px at 10% -10%, rgba(79,70,229,.35), transparent 60%), radial-gradient(900px 400px at 90% -20%, rgba(236,72,153,.35), transparent 60%), linear-gradient(180deg, #0f172a, #0b1220 60%)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    
+    /* Subtle noise for premium feel */
+    .noise { position: relative; }
+    .noise:before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.04; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.45"/></svg>'); }
+    
+    /* Hide scrollbar helper */
+    .no-scrollbar::-webkit-scrollbar{ display:none; }
+    .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
+    .link-underline { background-size: 0 2px; background-image: linear-gradient(currentColor,currentColor); background-repeat: no-repeat; background-position: 0 100%; transition: background-size .3s ease; }
+    .link-underline:hover { background-size: 100% 2px; }
+  </style>
+</head>
+<body class="font-inter bg-gray-50 text-gray-900 selection:bg-blue-500/30 selection:text-blue-900 dark:bg-slate-950 dark:text-slate-100">
+  <!-- Navbar -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-900/80 border-b border-gray-200 dark:border-slate-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2">
+          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">MyBlog</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8 text-sm">
+          <a class="link-underline hover:text-blue-600" href="#">Home</a>
+          <a class="link-underline hover:text-blue-600" href="#categories">Categories</a>
+          <a class="link-underline hover:text-blue-600" href="#featured">Featured</a>
+          <a class="link-underline hover:text-blue-600" href="#latest">Latest</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-700 hover:scale-110 transition">
+            <i class='bx bx-moon'></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- Hero -->
+  <section class="noise bg-hero-gradient pt-28 pb-20 overflow-hidden" id="hero">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div data-aos="fade-right">
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">The Future of IT Starts Here.</h1>          
+          <p class="mt-4 text-gray-600 dark:text-slate-300 max-w-xl">Explore IT inventions, revolutions, and the future of technology — explained with clarity and code samples.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#featured" class="rounded-full px-5 py-2.5 font-semibold shadow-glow bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:via-red-500 hover:to-green-400 text-white transition-transform active:scale-95">Explore Featured</a>
+            <a href="#latest" class="rounded-full px-5 py-2.5 font-semibold ring-1 ring-gray-300 dark:ring-white/15 bg-white hover:bg-gray-100 dark:bg-slate-900 dark:hover:bg-slate-800">Read Latest</a>
+          </div>
+        </div>
+        <div class="relative" data-aos="fade-left">
+          <!-- Parallax blobs (no visual change, just depth) -->
+          <div class="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-fuchsia-500/20 blur-2xl will-change-transform" data-rellax data-rellax-speed="2"></div>
+          <div class="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-indigo-500/20 blur-2xl will-change-transform" data-rellax data-rellax-speed="-2"></div>
+          <div class="grid grid-cols-2 gap-4 will-change-transform" data-rellax data-rellax-speed="1.2">
+            <div class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+              <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/600x400/?code,developer" alt="" />
+              <div class="p-4">
+                <p class="text-xs text-slate-300 mb-1">Guide</p>
+                <h3 class="font-semibold">Laravel Eloquent Tips</h3>
+              </div>
+            </div>
+            <div class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+              <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/600x400/?ai,abstract" alt="" />
+              <div class="p-4">
+                <p class="text-xs text-slate-300 mb-1">Opinion</p>
+                <h3 class="font-semibold">AI and Dev Productivity</h3>
+              </div>
+            </div>
+            <div class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+              <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/600x400/?startup,office" alt="" />
+              <div class="p-4">
+                <p class="text-xs text-slate-300 mb-1">Playbook</p>
+                <h3 class="font-semibold">Ship Faster, Smarter</h3>
+              </div>
+            </div>
+            <div class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+              <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/600x400/?design,minimal" alt="" />
+              <div class="p-4">
+                <p class="text-xs text-slate-300 mb-1">Design</p>
+                <h3 class="font-semibold">Minimal UI Patterns</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Category chips -->
+      <div id="categories" class="mt-10 flex gap-3 overflow-x-auto no-scrollbar" data-aos="fade-up">
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold ring-1 ring-white/15 bg-white/5 whitespace-nowrap">All</span>
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r from-indigo-500 to-fuchsia-500 whitespace-nowrap">Laravel</span>
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold ring-1 ring-white/15 bg-white/5 whitespace-nowrap">JavaScript</span>
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold ring-1 ring-white/15 bg-white/5 whitespace-nowrap">AI</span>
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold ring-1 ring-white/15 bg-white/5 whitespace-nowrap">DevOps</span>
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold ring-1 ring-white/15 bg-white/5 whitespace-nowrap">Design</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Section -->
+  <section id="featured" class="py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-12">Featured Posts</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <article data-aos="fade-up" class="p-6 rounded-2xl bg-gray-50 dark:bg-slate-800 shadow-soft hover:shadow-glow transition">
+          <h3 class="text-xl font-semibold mb-3">Artificial Intelligence</h3>
+          <p class="text-gray-600 dark:text-slate-300 mb-4">Latest breakthroughs in AI transforming industries worldwide.</p>
+          <a href="#" class="text-blue-600 dark:text-blue-400 font-semibold">Read More →</a>
+        </article>
+        <article data-aos="fade-up" data-aos-delay="100" class="p-6 rounded-2xl bg-gray-50 dark:bg-slate-800 shadow-soft hover:shadow-glow transition">
+          <h3 class="text-xl font-semibold mb-3">Quantum Computing</h3>
+          <p class="text-gray-600 dark:text-slate-300 mb-4">The revolution of processing power and possibilities of tomorrow.</p>
+          <a href="#" class="text-blue-600 dark:text-blue-400 font-semibold">Read More →</a>
+        </article>
+        <article data-aos="fade-up" data-aos-delay="200" class="p-6 rounded-2xl bg-gray-50 dark:bg-slate-800 shadow-soft hover:shadow-glow transition">
+          <h3 class="text-xl font-semibold mb-3">Cloud Revolution</h3>
+          <p class="text-gray-600 dark:text-slate-300 mb-4">How cloud services are shaping businesses and everyday life.</p>
+          <a href="#" class="text-blue-600 dark:text-blue-400 font-semibold">Read More →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Section -->
+  <section id="latest" class="py-20 bg-gray-50 dark:bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-12">Latest Articles</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <article class="p-6 rounded-2xl bg-white dark:bg-slate-800 shadow-soft hover:shadow-glow transition" data-aos="fade-up">
+          <h3 class="font-semibold text-lg mb-2">5G and Beyond</h3>
+          <p class="text-gray-600 dark:text-slate-300">The impact of next-gen connectivity on IoT and industries.</p>
+        </article>
+        <article class="p-6 rounded-2xl bg-white dark:bg-slate-800 shadow-soft hover:shadow-glow transition" data-aos="fade-up" data-aos-delay="100">
+          <h3 class="font-semibold text-lg mb-2">Cybersecurity Trends</h3>
+          <p class="text-gray-600 dark:text-slate-300">Emerging threats and defenses in the ever-connected world.</p>
+        </article>
+        <article class="p-6 rounded-2xl bg-white dark:bg-slate-800 shadow-soft hover:shadow-glow transition" data-aos="fade-up" data-aos-delay="200">
+          <h3 class="font-semibold text-lg mb-2">Green IT</h3>
+          <p class="text-gray-600 dark:text-slate-300">Sustainable technologies reducing carbon footprint.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter CTA -->
+  <section class="py-16 bg-gray-100 dark:bg-slate-950 transition-base">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="zoom-in">
+      <div class="rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-sky-600 shadow-lg">
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Get the best posts in your inbox</h3>
+            <p class="mt-2 text-slate-100/90 dark:text-slate-200/80">No spam. Just high-signal reads.</p>
+          </div>
+          <form class="flex w-full gap-3">
+            <input class="w-full rounded-xl px-4 py-3 text-slate-900 dark:text-slate-100 dark:bg-slate-800 placeholder-slate-500 dark:placeholder-slate-400 transition-base" type="email" placeholder="Enter your email" />
+            <button class="whitespace-nowrap rounded-xl px-5 py-3 font-semibold bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200 transition-base">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 dark:bg-slate-950 border-t border-gray-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-gray-600 dark:text-slate-400">© 2025 MyBlog. All rights reserved.</p>
+        <div class="flex items-center gap-4 text-xl text-gray-500 dark:text-slate-400">
+          <a href="#" class="hover:text-blue-600"><i class='bx bxl-facebook'></i></a>
+          <a href="#" class="hover:text-blue-600"><i class='bx bxl-twitter'></i></a>
+          <a href="#" class="hover:text-blue-600"><i class='bx bxl-github'></i></a>
+          <a href="#" class="hover:text-blue-600"><i class='bx bxl-instagram'></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+  <script>
+    // Theme Toggle
+    const htmlEl = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    if(localStorage.theme === 'light'){ htmlEl.classList.remove('dark'); }
+    else if(localStorage.theme === 'dark'){ htmlEl.classList.add('dark'); }
+    else if(window.matchMedia('(prefers-color-scheme: dark)').matches){ htmlEl.classList.add('dark'); }
+
+    themeToggle.addEventListener('click',()=>{
+      htmlEl.classList.toggle('dark');
+      if(htmlEl.classList.contains('dark')) localStorage.theme='dark';
+      else localStorage.theme='light';
+    });
+
+    // AOS Init
+    AOS.init({ once:true, duration:1000 });
+
+    // Lenis Smooth Scroll
+    const lenis = new Lenis();
+    function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // GSAP Parallax
+    gsap.to('#parallax-img',{yPercent:15, ease:'none', scrollTrigger:{trigger:'#hero', start:'top bottom', scrub:true}});
+  </script>
+</body>
+</html>

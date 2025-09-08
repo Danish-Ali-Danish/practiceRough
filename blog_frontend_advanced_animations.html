@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Blog CMS — Animated Frontend</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Typed.js -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 font-sans text-gray-900">
+  <!-- Navbar -->
+  <header class="backdrop-blur bg-white/70 fixed w-full z-50 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-500">MyBlog</h1>
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <a href="#" class="hover:text-indigo-600">Home</a>
+        <a href="#" class="hover:text-indigo-600">Categories</a>
+        <a href="#" class="hover:text-indigo-600">About</a>
+        <a href="#" class="hover:text-indigo-600">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="h-screen flex items-center justify-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-center px-4 relative">
+    <div data-aos="zoom-in">
+      <h2 class="text-5xl md:text-6xl font-extrabold mb-4">
+        <span id="typed-text"></span>
+      </h2>
+      <p class="text-lg text-gray-200 mb-6 max-w-2xl mx-auto">Stay updated with the latest trends, insights, and stories that inspire.</p>
+      <a href="#" class="bg-white text-indigo-600 px-6 py-2 rounded-full font-semibold shadow hover:scale-105 transition">Explore Now</a>
+    </div>
+  </section>
+
+  <!-- Featured Carousel -->
+  <section class="max-w-6xl mx-auto py-16 px-4" data-aos="fade-up">
+    <h3 class="text-3xl font-bold mb-8 text-center">✨ Featured Posts</h3>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
+            <img src="https://source.unsplash.com/600x400/?technology" class="w-full h-48 object-cover" />
+            <div class="p-4">
+              <h4 class="font-semibold text-lg">The Future of AI</h4>
+              <p class="text-sm text-gray-600">How artificial intelligence is shaping tomorrow...</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
+            <img src="https://source.unsplash.com/600x400/?coding" class="w-full h-48 object-cover" />
+            <div class="p-4">
+              <h4 class="font-semibold text-lg">Mastering Laravel</h4>
+              <p class="text-sm text-gray-600">Become a Laravel pro developer with these tips...</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
+            <img src="https://source.unsplash.com/600x400/?startup" class="w-full h-48 object-cover" />
+            <div class="p-4">
+              <h4 class="font-semibold text-lg">Startup Growth Hacks</h4>
+              <p class="text-sm text-gray-600">Scale your startup fast with smart strategies...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </section>
+
+  <!-- Latest Posts Grid -->
+  <section class="max-w-6xl mx-auto py-16 px-4" data-aos="fade-up">
+    <h3 class="text-3xl font-bold mb-8 text-center">📰 Latest Posts</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition">
+        <img src="https://source.unsplash.com/600x400/?nature" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <span class="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full">Travel</span>
+          <h4 class="font-semibold text-xl mt-2">Exploring Nature</h4>
+          <p class="text-gray-600 text-sm mt-2">An adventure into the wilderness and beauty of nature.</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition">
+        <img src="https://source.unsplash.com/600x400/?books" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <span class="text-xs bg-pink-100 text-pink-600 px-2 py-1 rounded-full">Books</span>
+          <h4 class="font-semibold text-xl mt-2">Top 10 Books to Read</h4>
+          <p class="text-gray-600 text-sm mt-2">Discover the most inspiring and educational books.</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition">
+        <img src="https://source.unsplash.com/600x400/?travel" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">Lifestyle</span>
+          <h4 class="font-semibold text-xl mt-2">Travel the World</h4>
+          <p class="text-gray-600 text-sm mt-2">Best destinations to visit in 2025.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-8 mt-16 relative">
+    <div class="max-w-6xl mx-auto text-center">
+      <p>&copy; 2025 MyBlog CMS. All rights reserved.</p>
+      <div class="flex justify-center space-x-6 mt-4">
+        <i class='bx bxl-facebook text-2xl hover:text-white transition'></i>
+        <i class='bx bxl-twitter text-2xl hover:text-white transition'></i>
+        <i class='bx bxl-instagram text-2xl hover:text-white transition'></i>
+      </div>
+    </div>
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600"></div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // AOS
+    AOS.init();
+
+    // Swiper
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      }
+    });
+
+    // Typed.js
+    new Typed("#typed-text", {
+      strings: ["Welcome to MyBlog", "Discover Inspiring Stories", "Stay Ahead with Tech Trends"],
+      typeSpeed: 60,
+      backSpeed: 30,
+      backDelay: 2000,
+      loop: true
+    });
+
+    // GSAP Animations
+    gsap.from("header", { y: -100, opacity: 0, duration: 1 });
+    gsap.from(".swiper-slide", { scale: 0.9, opacity: 0, stagger: 0.2, duration: 1, scrollTrigger: { trigger: ".swiper-slide" }});
+  </script>
+</body>
+</html>

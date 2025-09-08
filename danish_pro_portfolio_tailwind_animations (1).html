@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danish | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Boxicons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- AOS for animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+    <h1 class="text-5xl font-bold mb-4">Hi, I'm Danish</h1>
+    <p class="text-lg max-w-2xl mb-6">A passionate Web Developer specialized in HTML, CSS, JavaScript, Laravel, PHP & MySQL</p>
+    <a href="#projects" class="bg-red-500 px-6 py-3 rounded-lg hover:bg-red-600 transition">View My Work</a>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-20 bg-gray-800">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-4xl font-bold mb-10">Skills</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div data-aos="zoom-in" class="flex flex-col items-center">
+          <i class='bx bxl-html5 text-6xl text-orange-500 animate-bounce'></i>
+          <p class="mt-2">HTML5</p>
+        </div>
+        <div data-aos="zoom-in" class="flex flex-col items-center">
+          <i class='bx bxl-css3 text-6xl text-blue-500 animate-bounce'></i>
+          <p class="mt-2">CSS3</p>
+        </div>
+        <div data-aos="zoom-in" class="flex flex-col items-center">
+          <i class='bx bxl-javascript text-6xl text-yellow-400 animate-bounce'></i>
+          <p class="mt-2">JavaScript</p>
+        </div>
+        <div data-aos="zoom-in" class="flex flex-col items-center">
+          <!-- Laravel SVG icon inline because Boxicons doesn't include it properly -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" class="w-16 h-16 text-red-600 animate-bounce fill-current">
+            <path d="M26.027 0.137c-.203.078-5.941 3.347-12.746 7.258C5.035 12.137.8 14.633.574 14.867c-.18.203-.383.555-.445.777-.172.574-.184 84.703-.012 85.309.063.234.266.578.45.77.445.469 49.672 28.774 50.27 28.91.277.066.59.054.898-.031.672-.168 49.77-28.41 50.207-28.871.18-.199.383-.543.449-.777.086-.278.117-4.676.117-13.938V73.48l11.969-6.875c11.285-6.488 11.977-6.895 12.266-7.34l.297-.48V44.207c0-15.871.031-14.977-.598-15.55-.168-.149-5.918-3.504-12.789-7.461L101.172 14.016h-1.387l-12.211 7.012c-6.723 3.867-12.438 7.172-12.715 7.352-.277.184-.609.523-.746.77l-.246.426-.055 13.734-.051 13.738-10.082 5.809c-5.547 3.188-10.164 5.829-10.262 5.852-.18.05-.192-1.258-.192-26.504V15.633l-.266-.457c-.332-.555 1.16.332-13.824-8.281C26.57-.332 26.871-.18 26.027.137z"/>
+          </svg>
+          <p class="mt-2">Laravel</p>
+        </div>
+        <div data-aos="zoom-in" class="flex flex-col items-center">
+          <i class='bx bxl-php text-6xl text-indigo-400 animate-bounce'></i>
+          <p class="mt-2">PHP</p>
+        </div>
+        <div data-aos="zoom-in" class="flex flex-col items-center">
+          <i class='bx bxs-data text-6xl text-green-400 animate-bounce'></i>
+          <p class="mt-2">MySQL</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000 });
+  </script>
+</body>
+</html>

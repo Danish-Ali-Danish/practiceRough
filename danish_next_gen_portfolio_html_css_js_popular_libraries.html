@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <title>Danish — Next‑Gen Portfolio</title>
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2728.svg" />
+
+  <!-- TailwindCSS CDN (JIT) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { display: ['Inter', 'ui-sans-serif', 'system-ui'] },
+          boxShadow: { 'glow': '0 0 0 3px rgb(14 165 233 / 0.4)' }
+        }
+      }
+    }
+  </script>
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <!-- AOS Animations -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <!-- Swiper slider -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css"/>
+
+  <style>
+    /* Custom Scrollbar */
+    :root { --brand: #0ea5e9; }
+    * { scrollbar-width: thin; scrollbar-color: var(--brand) transparent; }
+    *::-webkit-scrollbar { height: 8px; width: 8px; }
+    *::-webkit-scrollbar-track { background: transparent; }
+    *::-webkit-scrollbar-thumb { background: var(--brand); border-radius: 9999px; }
+
+    /* Preloader */
+    #preloader{position:fixed;inset:0;display:grid;place-items:center;background:rgba(15,23,42,.98);z-index:50}
+    .dot{width:10px;height:10px;margin:6px;border-radius:9999px;background:#38bdf8;display:inline-block;animation:bounce 0.8s infinite alternate}
+    .dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
+    @keyframes bounce{to{transform:translateY(-10px);opacity:.7}}
+
+    /* Glass effect */
+    .glass{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));backdrop-filter:blur(8px)}
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 selection:bg-cyan-200/60 dark:selection:bg-cyan-400/30">
+  <!-- ==================== Preloader ==================== -->
+  <div id="preloader">
+    <div class="text-center">
+      <div class="flex items-center justify-center">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+      <p class="mt-3 text-slate-200 text-sm tracking-wide">Loading portfolio…</p>
+    </div>
+  </div>
+
+  <!-- ==================== Header / Navbar ==================== -->
+  <header class="sticky top-0 z-40">
+    <nav class="glass border-b border-white/10 dark:border-white/5 backdrop-blur supports-[backdrop-filter]:bg-white/10 supports-[backdrop-filter]:dark:bg-white/5">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <a href="#home" class="flex items-center gap-2">
+            <i class='bx bxs-bolt text-cyan-500 text-2xl'></i>
+            <span class="font-semibold tracking-wide">Danish.dev</span>
+          </a>
+          <div class="hidden md:flex items-center gap-6">
+            <a href="#about" class="hover:text-cyan-500">About</a>
+            <a href="#skills" class="hover:text-cyan-500">Skills</a>
+            <a href="#work" class="hover:text-cyan-500">Projects</a>
+            <a href="#testimonials" class="hover:text-cyan-500">Reviews</a>
+            <a href="#contact" class="hover:text-cyan-500">Contact</a>
+            <button id="themeToggle" class="p-2 rounded-xl border border-slate-200/50 dark:border-slate-700 hover:shadow-glow" aria-label="Toggle theme">
+              <i class='bx bx-moon text-xl hidden dark:inline'></i>
+              <i class='bx bx-sun text-xl dark:hidden'></i>
+            </button>
+            <a href="#contact" class="inline-flex items-center gap-2 bg-cyan-500 text-white px-4 py-2 rounded-xl hover:bg-cyan-600">
+              <i class='bx bx-paper-plane'></i> Hire Me
+            </a>
+          </div>
+          <button id="openMenu" class="md:hidden p-2 rounded-xl border border-slate-200/50 dark:border-slate-700" aria-label="Open menu">
+            <i class='bx bx-menu text-2xl'></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div id="mobileMenu" class="md:hidden hidden border-t border-white/10">
+        <div class="px-4 py-3 space-y-2">
+          <a href="#about" class="block">About</a>
+          <a href="#skills" class="block">Skills</a>
+          <a href="#work" class="block">Projects</a>
+          <a href="#testimonials" class="block">Reviews</a>
+          <a href="#contact" class="block">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ==================== Hero ==================== -->
+  <section id="home" class="relative overflow-hidden">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-10 items-center">
+      <div data-aos="fade-up" data-aos-delay="50">
+        <p class="uppercase tracking-widest text-xs text-slate-500">Hello, I'm</p>
+        <h1 class="mt-2 text-4xl sm:text-5xl font-extrabold leading-tight">
+          Danish Ali
+          <span class="block text-cyan-500">Front‑End Developer</span>
+        </h1>
+        <p class="mt-4 text-slate-600 dark:text-slate-300">I craft responsive, accessible and animated web experiences using modern stacks.</p>
+        <p class="mt-2 text-slate-500"><span id="typed" class="font-medium"></span></p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#work" class="inline-flex items-center gap-2 bg-cyan-500 text-white px-5 py-3 rounded-xl hover:bg-cyan-600"><i class='bx bx-rocket'></i> View Projects</a>
+          <a href="#contact" class="inline-flex items-center gap-2 border border-slate-300 dark:border-slate-700 px-5 py-3 rounded-xl hover:border-cyan-500"><i class='bx bx-phone-call'></i> Contact</a>
+        </div>
+        <div class="mt-6 flex items-center gap-4">
+          <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn" class="text-2xl hover:text-cyan-500"><i class='bx bxl-linkedin-square'></i></a>
+          <a href="https://github.com/" target="_blank" aria-label="GitHub" class="text-2xl hover:text-cyan-500"><i class='bx bxl-github'></i></a>
+          <a href="mailto:you@example.com" aria-label="Email" class="text-2xl hover:text-cyan-500"><i class='bx bx-envelope'></i></a>
+        </div>
+      </div>
+      <div class="relative" data-aos="zoom-in" data-aos-delay="150">
+        <div class="aspect-square rounded-3xl bg-gradient-to-br from-cyan-500/20 via-fuchsia-500/10 to-amber-500/10 p-2">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop" alt="Developer at work" class="w-full h-full object-cover rounded-2xl" loading="lazy">
+        </div>
+        <div class="absolute -bottom-6 -left-6 bg-white/80 dark:bg-slate-800/80 border border-white/20 rounded-2xl p-4 shadow-lg">
+          <p class="text-sm">5+ Projects • Available for freelance</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== About ==================== -->
+  <section id="about" class="py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-10 items-start">
+      <div class="lg:col-span-1" data-aos="fade-right">
+        <h2 class="text-3xl font-bold">About Me</h2>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">Bachelor's in Mathematics • Passionate about UI, animations and clean code. I build fast and accessible interfaces with modern tooling.</p>
+        <div class="mt-6 grid grid-cols-2 gap-3 text-sm">
+          <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700"><span class="block text-slate-500">Based in</span><span class="font-semibold">Lahore, PK</span></div>
+          <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700"><span class="block text-slate-500">Experience</span><span class="font-semibold">1+ Years</span></div>
+          <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700"><span class="block text-slate-500">Freelance</span><span class="font-semibold">Available</span></div>
+          <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700"><span class="block text-slate-500">Email</span><span class="font-semibold">you@example.com</span></div>
+        </div>
+      </div>
+      <div class="lg:col-span-2 space-y-6" data-aos="fade-left">
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+          <h3 class="font-semibold mb-2">What I do</h3>
+          <p class="text-slate-600 dark:text-slate-300">Responsive SPA/MPA, pixel‑perfect UI, performance optimization, accessibility (a11y), and smooth micro‑interactions.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <h4 class="font-semibold">Front‑End</h4>
+            <ul class="mt-3 space-y-2 text-slate-600 dark:text-slate-300 list-disc list-inside">
+              <li>HTML5, CSS3, Tailwind CSS</li>
+              <li>JavaScript (ES2023), jQuery</li>
+              <li>Animations: GSAP, AOS</li>
+            </ul>
+          </div>
+          <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <h4 class="font-semibold">Tools</h4>
+            <ul class="mt-3 space-y-2 text-slate-600 dark:text-slate-300 list-disc list-inside">
+              <li>Git & GitHub</li>
+              <li>Figma to code</li>
+              <li>Build: Vite / CDN</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Skills ==================== -->
+  <section id="skills" class="py-16 bg-white/40 dark:bg-white/5">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold mb-10" data-aos="fade-up">Skills</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Skill Card -->
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700" data-aos="zoom-in">
+          <div class="flex items-center justify-between">
+            <span class="font-semibold">HTML / CSS</span>
+            <span class="text-sm text-slate-500">90%</span>
+          </div>
+          <div class="h-2 mt-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-cyan-500" style="width:90%"></div>
+          </div>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700" data-aos="zoom-in" data-aos-delay="50">
+          <div class="flex items-center justify-between"><span class="font-semibold">JavaScript</span><span class="text-sm text-slate-500">80%</span></div>
+          <div class="h-2 mt-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-cyan-500" style="width:80%"></div></div>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700" data-aos="zoom-in" data-aos-delay="100">
+          <div class="flex items-center justify-between"><span class="font-semibold">Tailwind CSS</span><span class="text-sm text-slate-500">85%</span></div>
+          <div class="h-2 mt-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-cyan-500" style="width:85%"></div></div>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700" data-aos="zoom-in" data-aos-delay="150">
+          <div class="flex items-center justify-between"><span class="font-semibold">GSAP / AOS</span><span class="text-sm text-slate-500">75%</span></div>
+          <div class="h-2 mt-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-cyan-500" style="width:75%"></div></div>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700" data-aos="zoom-in" data-aos-delay="200">
+          <div class="flex items-center justify-between"><span class="font-semibold">jQuery</span><span class="text-sm text-slate-500">70%</span></div>
+          <div class="h-2 mt-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-cyan-500" style="width:70%"></div></div>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700" data-aos="zoom-in" data-aos-delay="250">
+          <div class="flex items-center justify-between"><span class="font-semibold">Performance</span><span class="text-sm text-slate-500">80%</span></div>
+          <div class="h-2 mt-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-cyan-500" style="width:80%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Projects / Portfolio ==================== -->
+  <section id="work" class="py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <h2 class="text-3xl font-bold">Featured Projects</h2>
+          <p class="text-slate-500">Filter by category</p>
+        </div>
+        <div class="inline-flex items-center gap-2 border border-slate-200 dark:border-slate-700 rounded-xl p-1">
+          <button data-filter="*" class="filter-btn px-3 py-1.5 rounded-lg bg-cyan-500 text-white">All</button>
+          <button data-filter=".web" class="filter-btn px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">Web</button>
+          <button data-filter=".app" class="filter-btn px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">App</button>
+          <button data-filter=".design" class="filter-btn px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">Design</button>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+        <!-- Card -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden web" data-category="web">
+          <a href="#" class="group block">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop" alt="Project 1" class="h-48 w-full object-cover group-hover:scale-105 transition-transform" loading="lazy">
+            <div class="p-5">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">SaaS Landing</h3>
+                <span class="text-xs bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300 px-2 py-0.5 rounded">Web</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Tailwind + AOS animations with responsive grid.</p>
+            </div>
+          </a>
+        </article>
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden app" data-category="app">
+          <a href="#" class="group block">
+            <img src="https://images.unsplash.com/photo-1581276879432-15e50529f34b?q=80&w=1200&auto=format&fit=crop" alt="Project 2" class="h-48 w-full object-cover group-hover:scale-105 transition-transform" loading="lazy">
+            <div class="p-5">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">Todo Mobile UI</h3>
+                <span class="text-xs bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 px-2 py-0.5 rounded">App</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">GSAP micro‑interactions and gestures preview.</p>
+            </div>
+          </a>
+        </article>
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden design" data-category="design">
+          <a href="#" class="group block">
+            <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=1200&auto=format&fit=crop" alt="Project 3" class="h-48 w-full object-cover group-hover:scale-105 transition-transform" loading="lazy">
+            <div class="p-5">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">Dashboard Concept</h3>
+                <span class="text-xs bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-900/30 dark:text-fuchsia-300 px-2 py-0.5 rounded">Design</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Figma to code exploration with charts.</p>
+            </div>
+          </a>
+        </article>
+        <!-- More cards duplicated with different classes -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden web">
+          <a href="#" class="group block">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Project 4" class="h-48 w-full object-cover group-hover:scale-105 transition-transform" loading="lazy">
+            <div class="p-5">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">E‑Commerce UI</h3>
+                <span class="text-xs bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300 px-2 py-0.5 rounded">Web</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Isotope filterable product grid.</p>
+            </div>
+          </a>
+        </article>
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden app">
+          <a href="#" class="group block">
+            <img src="https://images.unsplash.com/photo-1557761469-f29f6a0f93b9?q=80&w=1200&auto=format&fit=crop" alt="Project 5" class="h-48 w-full object-cover group-hover:scale-105 transition-transform" loading="lazy">
+            <div class="p-5">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">Weather App</h3>
+                <span class="text-xs bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 px-2 py-0.5 rounded">App</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">PWA layout with card components.</p>
+            </div>
+          </a>
+        </article>
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden design">
+          <a href="#" class="group block">
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="Project 6" class="h-48 w-full object-cover group-hover:scale-105 transition-transform" loading="lazy">
+            <div class="p-5">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">Portfolio Concept</h3>
+                <span class="text-xs bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-900/30 dark:text-fuchsia-300 px-2 py-0.5 rounded">Design</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Glassmorphism and soft shadows.</p>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Testimonials (Swiper) ==================== -->
+  <section id="testimonials" class="py-16 bg-white/40 dark:bg-white/5">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <h2 class="text-3xl font-bold">What Clients Say</h2>
+          <p class="text-slate-500">Reviews from recent projects</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="prev p-2 rounded-xl border border-slate-300 dark:border-slate-700"><i class='bx bx-left-arrow-alt'></i></button>
+          <button class="next p-2 rounded-xl border border-slate-300 dark:border-slate-700"><i class='bx bx-right-arrow-alt'></i></button>
+        </div>
+      </div>
+
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60">
+              <p>“Amazing attention to detail and timely delivery. Highly recommended!”</p>
+              <div class="mt-4 flex items-center gap-3 text-sm"><img class="w-8 h-8 rounded-full" src="https://i.pravatar.cc/64?img=5" alt="Avatar"/><span class="font-medium">Sarah Khan — Startup CEO</span></div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60">
+              <p>“Clean, fast and accessible UI. Great communication throughout the project.”</p>
+              <div class="mt-4 flex items-center gap-3 text-sm"><img class="w-8 h-8 rounded-full" src="https://i.pravatar.cc/64?img=12" alt="Avatar"/><span class="font-medium">Ali Raza — Product Lead</span></div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60">
+              <p>“From Figma to live site flawlessly. Will hire again.”</p>
+              <div class="mt-4 flex items-center gap-3 text-sm"><img class="w-8 h-8 rounded-full" src="https://i.pravatar.cc/64?img=20" alt="Avatar"/><span class="font-medium">Emily — Designer</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Contact ==================== -->
+  <section id="contact" class="py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-start">
+      <div data-aos="fade-right">
+        <h2 class="text-3xl font-bold">Let’s Build Something</h2>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">Have an idea or a project? Send a message and I’ll reply soon.</p>
+        <div class="mt-6 space-y-3 text-sm">
+          <p><i class='bx bx-envelope'></i> you@example.com</p>
+          <p><i class='bx bx-map'></i> Lahore, Pakistan</p>
+          <p><i class='bx bx-time-five'></i> Available: Mon–Sat</p>
+        </div>
+      </div>
+      <form id="contactForm" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700" data-aos="fade-left">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm">Name</label>
+            <input required name="name" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-2 outline-none focus:ring-2 focus:ring-cyan-400" placeholder="Your name">
+          </div>
+          <div>
+            <label class="text-sm">Email</label>
+            <input required type="email" name="email" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-2 outline-none focus:ring-2 focus:ring-cyan-400" placeholder="name@email.com">
+          </div>
+        </div>
+        <div class="mt-4">
+          <label class="text-sm">Subject</label>
+          <input name="subject" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-2 outline-none focus:ring-2 focus:ring-cyan-400" placeholder="Project enquiry">
+        </div>
+        <div class="mt-4">
+          <label class="text-sm">Message</label>
+          <textarea required name="message" rows="5" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-2 outline-none focus:ring-2 focus:ring-cyan-400" placeholder="Tell me about your project…"></textarea>
+        </div>
+        <div class="mt-6 flex items-center gap-3">
+          <button type="submit" class="inline-flex items-center gap-2 bg-cyan-500 text-white px-5 py-3 rounded-xl hover:bg-cyan-600"><i class='bx bx-send'></i> Send</button>
+          <span id="formStatus" class="text-sm"></span>
+        </div>
+        <!-- EmailJS Setup: Replace YOUR_PUBLIC_KEY and YOUR_SERVICE/YOUR_TEMPLATE below -->
+        <p class="mt-3 text-xs text-slate-500">Tip: To enable form submission, create a free account at emailjs.com and replace the placeholders in the JS.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ==================== Footer ==================== -->
+  <footer class="border-t border-white/10 py-10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-slate-500">© <span id="year"></span> Danish Ali. All rights reserved.</p>
+      <a href="#home" class="inline-flex items-center gap-2 border border-slate-300 dark:border-slate-700 px-4 py-2 rounded-xl hover:border-cyan-500"><i class='bx bx-up-arrow-alt'></i> Back to top</a>
+    </div>
+  </footer>
+
+  <!-- ==================== Scripts ==================== -->
+  <!-- Core libs -->
+  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js" defer></script>
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js" defer></script>
+  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js" defer></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+  <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js" defer></script>
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js" defer></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollToPlugin.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+
+  <script>
+    // =================== Theme (Dark/Light) ===================
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // =================== Mobile Menu ===================
+    const openMenu = document.getElementById('openMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    openMenu.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // =================== Typed.js ===================
+    window.addEventListener('DOMContentLoaded', () => {
+      new Typed('#typed', {
+        strings: ['I love <strong>Tailwind CSS</strong>.', 'I build <strong>fast UIs</strong>.', 'Let\'s create something <strong>awesome</strong>.'],
+        typeSpeed: 45, backSpeed: 20, loop: true
+      });
+    });
+
+    // =================== AOS ===================
+    window.addEventListener('load', () => { AOS.init({ duration: 700, once: true }); });
+
+    // =================== Swiper (Testimonials) ===================
+    window.addEventListener('load', () => {
+      const swiper = new Swiper('.swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.next', prevEl: '.prev' },
+        breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+      });
+    });
+
+    // =================== Isotope Filter ===================
+    window.addEventListener('load', () => {
+      const grid = document.querySelector('#portfolio-grid');
+      imagesLoaded(grid, function(){
+        const iso = new Isotope(grid, { itemSelector: 'article', layoutMode: 'masonry' });
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('bg-cyan-500','text-white'));
+            btn.classList.add('bg-cyan-500','text-white');
+            iso.arrange({ filter: btn.dataset.filter });
+          });
+        });
+      });
+    });
+
+    // =================== Contact Form (EmailJS) ===================
+    window.addEventListener('load', () => {
+      // 1) Replace with your public key from EmailJS dashboard
+      // emailjs.init('YOUR_PUBLIC_KEY');
+
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.textContent = 'Sending…';
+        try {
+          // 2) Replace service_id and template_id
+          // await emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form);
+          // Fake success for demo:
+          await new Promise(r => setTimeout(r, 800));
+          status.textContent = 'Message sent! I\'ll get back soon.';
+          form.reset();
+        } catch (err) {
+          status.textContent = 'Failed to send. Please try again.';
+          console.error(err);
+        }
+      });
+    });
+
+    // =================== Back to Top smooth scroll (GSAP) ===================
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if(href.length > 1){
+          e.preventDefault();
+          gsap.to(window, { duration: .6, scrollTo: href, ease: 'power2.out' });
+        }
+      });
+    });
+
+    // =================== Footer Year ===================
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // =================== Preloader Hide ===================
+    window.addEventListener('load', () => {
+      const p = document.getElementById('preloader');
+      p.style.opacity = '0';
+      setTimeout(()=> p.style.display='none', 300);
+    });
+  </script>
+</body>
+</html>

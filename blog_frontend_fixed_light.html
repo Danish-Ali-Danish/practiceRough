@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyBlog — Modern Frontend</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { inter: ["Inter", "ui-sans-serif", "system-ui"] },
+          boxShadow: {
+            soft: "0 10px 30px -12px rgb(0 0 0 / 0.25)",
+            glow: "0 8px 24px -6px rgb(99 102 241 / .5)",
+          },
+          backgroundImage: {
+            'hero-gradient-dark': 'radial-gradient(1200px 500px at 10% -10%, rgba(79,70,229,.35), transparent 60%), radial-gradient(900px 400px at 90% -20%, rgba(236,72,153,.35), transparent 60%), linear-gradient(180deg, #0f172a, #0b1220 60%)',
+            'hero-gradient-light': 'radial-gradient(1200px 500px at 10% -10%, rgba(79,70,229,.15), transparent 60%), radial-gradient(900px 400px at 90% -20%, rgba(236,72,153,.15), transparent 60%), linear-gradient(180deg, #ffffff, #f8fafc 60%)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    .noise { position: relative; }
+    .noise:before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.04; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.45"/></svg>'); }
+    .link-underline { background-size: 0 2px; background-image: linear-gradient(currentColor,currentColor); background-repeat: no-repeat; background-position: 0 100%; transition: background-size .3s ease; }
+    .link-underline:hover { background-size: 100% 2px; }
+
+    .light body { background-color: #f8fafc; color: #0f172a; }
+    .light header { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.1); }
+    .light h1, .light p, .light a { color: #0f172a; }
+  </style>
+</head>
+
+<body class="font-inter bg-slate-950 text-slate-100">
+  <!-- Navbar -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-slate-900/50 bg-slate-900/70 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2">
+          <span class="text-xl font-extrabold bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">MyBlog</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8 text-sm">
+          <a class="link-underline" href="#">Home</a>
+          <a class="link-underline" href="#categories">Categories</a>
+          <a class="link-underline" href="#featured">Featured</a>
+          <a class="link-underline" href="#latest">Latest</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <button id="themeToggle" class="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm border">
+            <i id="themeIcon" class='bx bx-moon text-lg'></i>
+            <span class="hidden sm:inline">Dark</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="hero" class="noise bg-hero-gradient-dark dark:bg-hero-gradient-dark light:bg-hero-gradient-light pt-28 pb-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">
+        Explore <span class="bg-gradient-to-r from-fuchsia-400 via-indigo-400 to-sky-400 bg-clip-text text-transparent">Future Tech</span> & IT Revolutions
+      </h1>
+      <p class="mt-4 max-w-xl text-slate-300 dark:text-slate-300 light:text-slate-700">Latest innovations, AI, programming tutorials, and IT revolution news for developers and tech lovers.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 dark:bg-slate-950 light:bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-slate-400 dark:text-slate-400 light:text-slate-600">
+      © 2025 MyBlog. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    setTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    });
+
+    function setTheme(theme) {
+      if(theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        themeIcon.className = 'bx bx-moon text-lg';
+        themeToggle.querySelector('span').textContent = 'Dark';
+      } else {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+        themeIcon.className = 'bx bx-sun text-lg';
+        themeToggle.querySelector('span').textContent = 'Light';
+      }
+      localStorage.setItem('theme', theme);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyBlog — Category & Detail Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily:{inter:["Inter"]} } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+<body class="font-inter bg-gray-50 text-gray-900 dark:bg-slate-950 dark:text-slate-100">
+  <!-- Navbar -->
+  <header class="fixed top-0 inset-x-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-900/80 border-b border-gray-200 dark:border-slate-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="text-xl font-bold bg-gradient-to-r from-blue-600 to-pink-600 bg-clip-text text-transparent">MyBlog</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="index.html">Home</a>
+        <a href="category.html" class="text-blue-600">Categories</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Category Page -->
+  <section class="pt-28 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8">Artificial Intelligence</h1>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <article class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold mb-2"><a href="detail.html">AI in Healthcare</a></h2>
+        <p class="text-gray-600 dark:text-slate-300">How AI is transforming diagnosis and patient care.</p>
+      </article>
+      <article class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold mb-2"><a href="detail.html">AI & Robotics</a></h2>
+        <p class="text-gray-600 dark:text-slate-300">Exploring automation and robotics driven by AI.</p>
+      </article>
+      <article class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold mb-2"><a href="detail.html">AI Ethics</a></h2>
+        <p class="text-gray-600 dark:text-slate-300">Balancing innovation with ethical considerations.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Blog Detail Page -->
+  <section class="py-16 bg-gray-100 dark:bg-slate-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <article class="prose dark:prose-invert max-w-none">
+        <h1 class="text-4xl font-bold mb-6">AI in Healthcare</h1>
+        <p class="text-gray-600 dark:text-slate-300 mb-4">Published on Feb 20, 2025 • 5 min read</p>
+        <img src="https://cdn.pixabay.com/photo/2020/05/12/14/08/doctor-5164456_1280.jpg" class="rounded-xl shadow mb-8" alt="AI Healthcare" />
+        <p>Artificial Intelligence is revolutionizing healthcare through improved diagnosis, predictive analytics, and personalized medicine. From radiology to surgery, AI-powered systems assist doctors in making better decisions, ultimately saving lives.</p>
+        <p>AI algorithms can analyze vast datasets, identify patterns, and predict outcomes faster than humans. However, challenges remain in terms of data privacy, bias, and trust in machine-driven results.</p>
+        <blockquote class="border-l-4 pl-4 italic">“AI won’t replace doctors, but doctors who use AI will replace those who don’t.”</blockquote>
+        <p>Future healthcare will likely be a collaboration between human expertise and AI precision. The potential is vast, but ethical and responsible implementation is crucial.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-200 dark:bg-slate-950 py-6 text-center text-gray-600 dark:text-slate-400">
+    © 2025 MyBlog. All Rights Reserved.
+  </footer>
+</body>
+</html>
