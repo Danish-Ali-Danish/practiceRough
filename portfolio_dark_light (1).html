@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danish Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * { transition: background-color 0.4s, color 0.4s, border-color 0.4s; }
+  </style>
+</head>
+<body class="bg-gray-900 text-white dark:bg-gray-900 dark:text-white light:bg-gray-50 light:text-gray-900">
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center p-6 bg-gray-800 dark:bg-gray-800 light:bg-white light:shadow-md sticky top-0 z-50">
+    <h1 class="text-2xl font-bold">Danish</h1>
+    <button id="themeToggle" class="px-4 py-2 rounded-lg bg-gray-700 dark:bg-gray-700 light:bg-gray-200">Toggle Mode</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center">
+    <h2 class="text-4xl font-bold mb-4">Hi, I'm Danish</h2>
+    <p class="text-lg text-gray-400 dark:text-gray-400 light:text-gray-600">Web Developer | PHP | Laravel | MySQL</p>
+  </section>
+
+  <!-- Professional Skills -->
+  <section class="py-16 px-6">
+    <h3 class="text-3xl font-bold text-center mb-10">Professional Skills</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+
+      <!-- PHP -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bxl-php text-5xl text-indigo-400 animate-bounce'></i>
+        <p class="mt-2">PHP</p>
+      </div>
+
+      <!-- Laravel -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" class="w-12 h-12 mx-auto animate-spin">
+          <path fill="#F35023" d="M26.027.137c-.203.078-5.94 3.348-12.746 7.258..."/>
+        </svg>
+        <p class="mt-2">Laravel</p>
+      </div>
+
+      <!-- MySQL -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bxs-data text-5xl text-green-400 animate-pulse'></i>
+        <p class="mt-2">MySQL</p>
+      </div>
+
+      <!-- JavaScript -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bxl-javascript text-5xl text-yellow-400 animate-spin'></i>
+        <p class="mt-2">JavaScript</p>
+      </div>
+
+      <!-- jQuery -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bxl-jquery text-5xl text-blue-400 animate-flash'></i>
+        <p class="mt-2">jQuery</p>
+      </div>
+
+      <!-- RESTful APIs -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bx-cloud text-5xl text-cyan-400 animate-bounce'></i>
+        <p class="mt-2">RESTful APIs</p>
+      </div>
+
+      <!-- JSON -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bxs-file-json text-5xl text-orange-400 animate-pulse'></i>
+        <p class="mt-2">JSON</p>
+      </div>
+
+      <!-- AJAX -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bx-transfer-alt text-5xl text-pink-400 animate-fade'></i>
+        <p class="mt-2">AJAX</p>
+      </div>
+
+      <!-- OOP -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bx-code-curly text-5xl text-cyan-500 animate-pulse'></i>
+        <p class="mt-2">OOP</p>
+      </div>
+
+      <!-- HTML5 -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bxl-html5 text-5xl text-orange-500 animate-bounce'></i>
+        <p class="mt-2">HTML5</p>
+      </div>
+
+      <!-- CSS3 -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bxl-css3 text-5xl text-blue-500 animate-pulse'></i>
+        <p class="mt-2">CSS3</p>
+      </div>
+
+      <!-- Bootstrap -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bxl-bootstrap text-5xl text-purple-600 animate-flip'></i>
+        <p class="mt-2">Bootstrap</p>
+      </div>
+
+      <!-- Tailwind CSS -->
+      <div class="bg-gray-800 light:bg-white light:border light:border-gray-200 p-6 rounded-xl text-center hover:scale-105 transition shadow-md">
+        <i class='bx bxl-tailwind-css text-5xl text-cyan-400 animate-zoom'></i>
+        <p class="mt-2">TailwindCSS</p>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  </script>
+</body>
+</html>

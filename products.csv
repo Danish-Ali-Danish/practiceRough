@@ -1,0 +1,7 @@
+ID,Name,Category,Stock,Price,Description,Status,Date Added
+PROD001,"Wireless Ergonomic Mouse",Electronics,150,49.99,"A comfortable and responsive wireless mouse for all-day use.",In Stock,2023-10-26
+PROD002,"Organic Cotton T-Shirt",Clothing,300,24.99,"Soft, breathable, and sustainably sourced cotton t-shirt.",In Stock,2023-10-25
+PROD003,"Smart LED Desk Lamp",Home Goods,45,89.99,"A modern desk lamp with adjustable brightness and color temperature.",Low Stock,2023-10-24
+PROD004,"The Art of Programming",Books,0,59.99,"A comprehensive guide to computer programming principles.",Out of Stock,2023-10-22
+PROD005,"Gourmet Coffee Beans",Groceries,200,19.99,"Single-origin Arabica coffee beans with rich flavor notes.",In Stock,2023-10-20
+PROD006,"Bluetooth Noise-Cancelling Headphones",Electronics,80,199.99,"Immersive sound experience with active noise cancellation technology.",In Stock,2023-10-19

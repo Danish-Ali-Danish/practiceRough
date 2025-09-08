@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danish - NextGen Animated Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .gradient-text { background: linear-gradient(90deg,#06b6d4,#9333ea,#f43f5e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    #particles-js { position: absolute; width: 100%; height: 100%; z-index: 0; }
+    #scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 6px; background: linear-gradient(to right, #06b6d4, #9333ea, #f43f5e); z-index: 1000; border-radius: 0 4px 4px 0; transition: width 0.25s ease-out; }
+    #scrollTopBtn { position: fixed; bottom: 30px; right: 30px; background: linear-gradient(to right, #06b6d4, #9333ea); color: white; padding: 12px; border-radius: 50%; font-size: 24px; cursor: pointer; display: none; z-index: 1000; transition: transform 0.3s, box-shadow 0.3s; }
+    #scrollTopBtn:hover { transform: scale(1.15); box-shadow: 0 0 20px rgba(6,182,212,0.7); }
+        /* custom scrollbar */
+    ::-webkit-scrollbar{height:8px;width:8px}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#06b6d4,#9333ea);border-radius:8px}
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 font-sans">
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+    <!-- Navbar -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-40 glass transition-colors duration-500">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <h1 class="text-xl md:text-2xl font-extrabold gradient-text">Danish.dev</h1>
+      <ul class="hidden md:flex items-center gap-8 text-sm">
+        <li><a href="#home" class="hover:text-cyan-400">Home</a></li>
+        <li><a href="#skills" class="hover:text-cyan-400">Skills</a></li>
+        <li><a href="#projects" class="hover:text-cyan-400">Projects</a></li>
+        <li><a href="#services" class="hover:text-cyan-400">Services</a></li>
+        <li><a href="#contact" class="hover:text-cyan-400">Contact</a></li>
+      </ul>
+      <button id="mode" class="text-2xl" aria-label="toggle theme"><i class='bx bx-moon'></i></button>
+    </nav>
+  </header>
+
+  <!-- Hero + Inline About (like alaadev style) -->
+  <section id="hero" class="min-h-screen flex items-center justify-center text-center relative overflow-hidden px-6">
+    <div id="particles-js"></div>
+    <div class="relative z-10 max-w-3xl" data-aos="fade-up">
+      <h2 class="text-5xl md:text-7xl font-extrabold gradient-text">Hi! I'm Danish</h2>
+      <p class="mt-3 text-xl md:text-2xl text-gray-300"><span id="typed"></span></p>
+      <!-- Inline About just under the name -->
+      <p class="mt-8 text-lg md:text-xl text-gray-300 leading-relaxed border-l-4 border-cyan-500 pl-4">
+        A creative web developer and content creator, bridging design and code to craft captivating web experiences.
+      </p>
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <a href="#projects" class="hvr-bounce-to-right px-6 py-3 bg-cyan-600 rounded-full font-semibold">See Projects</a>
+        <a href="#contact" class="hvr-bounce-to-left px-6 py-3 bg-pink-600 rounded-full font-semibold">Hire Me</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Skills -->
+  <section id="skills" class="py-20 bg-gray-900">
+    <h3 class="text-4xl font-bold text-center mb-12 gradient-text">Skills</h3>
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 px-6">
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bxl-php text-5xl text-indigo-400 animate-bounce'></i>
+<p class="mt-2">PHP</p>
+</div>
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" class="w-12 h-12 mx-auto animate-bounce">
+    <path fill="#F35023" d="M26.027.137c-.203.078-5.94 3.348-12.746 7.258C5.035 12.137.801 14.633.574 14.867c-.18.203-.383.555-.445.777-.172.574-.184 84.703-.012 85.309.062.234.266.578.45.77.446.469 49.672 28.774 50.27 28.91.277.066.59.054.898-.031.672-.168 49.77-28.41 50.207-28.871.18-.199.383-.543.449-.777.086-.277.117-4.676.117-13.937V73.48l11.969-6.875c11.285-6.488 11.977-6.895 12.266-7.34l.297-.48V44.207c0-15.872.031-14.977-.598-15.551-.168-.149-5.918-3.504-12.789-7.461l-12.48-7.18h-1.387l-12.21 7.012c-6.723 3.867-12.438 7.172-12.715 7.352-.277.183-.609.523-.746.77l-.246.426-.055 13.734-.051 13.739-10.082 5.809c-5.547 3.188-10.164 5.829-10.262 5.852-.18.051-.191-1.257-.191-26.503V15.633l-.266-.457c-.332-.555 1.16.332-13.824-8.281C26.57-.332 26.871-.18 26.027.137zM37.578 10.656c5.258 3.016 9.559 5.512 9.559 5.543 0 .031-4.61 2.695-10.243 5.933l-10.25 5.883-10.23-5.883C10.793 18.895 6.188 16.23 6.188 16.199c0-.031 4.598-2.695 10.219-5.926l10.207-5.871.703.383c.394.215 5.016 2.855 10.261 5.871zM110.73 24.191c5.535 3.188 10.113 5.82 10.156 5.863.117.106-20.183 11.773-20.461 11.762-.277-.008-20.328-11.57-20.32-11.711.012-.16 20.184-11.766 20.387-11.734.094.023 4.703 2.645 10.238 5.82zM14.828 25.875l9.758 5.617.055 27.812.051 27.816.239.375c.125.199.36.468.531.593.16.117 5.59 3.21 12.062 6.863l11.758 6.64v11.766c0 6.457-.043 11.754-.098 11.754-.043 0-10.207-5.817-22.582-12.938L4.105 99.238l-.031-39.773L4.055 19.703l.5.277c.289.152 4.906 2.805 10.273 5.895zm34.453 19.578v25.629l-.395.258c-.535.34-20.074 11.57-20.14 11.57-.031 0-.055-11.57-.055-25.715l.012-25.703 10.207-5.871c5.613-3.23 10.242-5.851 10.297-5.832.039.023.074 11.574.074 25.664zm38.941-5.895l10.23 5.883v11.66c0 11.063-.012 11.656-.18 11.594-.11-.043-4.738-2.695-10.293-5.894l-10.113-5.809V45.336c0-6.418.031-11.66.062-11.66.043 0 4.672 2.645 10.293 5.883zm34.871 5.703c0 6.383-.043 11.648-.086 11.699-.074.117-20.308 11.777-20.437 11.777-.031 0-.062-5.242-.062-11.66V45.422l10.207-5.875c5.621-3.227 10.25-5.871 10.293-5.871.055 0 .086 5.211.086 11.586zM86.23 66.469c8.606 4.953 10.09 5.84 9.941 5.957-.098.063-3.36 1.938-7.243 4.156-3.883 2.215-13.941 7.95-22.359 12.746l-15.297 8.727-.488-.266c-2.922-1.598-19.875-11.242-19.875-11.316-.008-.16 44.855-25.941 45.035-25.875.086.031 4.715 2.672 10.285 5.871zm12.203 21.09l-.035 11.68-22.484 12.938c-12.371 7.121-22.539 12.938-22.59 12.938-.055 0-.098-4.754-.098-11.754V101.59l22.539-12.852C88.148 81.676 98.324 75.89 98.379 75.879c.043 0 .063 5.254.055 11.68z"/>
+  </svg>
+  <p class="mt-2">Laravel</p>
+</div>
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bxs-data text-5xl text-green-400 animate-pulse'></i>
+<p class="mt-2">MySQL</p>
+</div>
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bxl-javascript text-5xl text-yellow-400 animate-spin'></i>
+<p class="mt-2">JavaScript</p>
+</div>
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bxl-jquery text-5xl text-blue-400 animate-pulse'></i>
+<p class="mt-2">jQuery</p>
+</div>
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bx-cloud text-5xl text-cyan-400 animate-bounce'></i>
+<p class="mt-2">RESTful APIs</p>
+</div>
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bxs-file-json text-5xl text-orange-400 animate-pulse'></i>
+<p class="mt-2">JSON</p>
+</div>
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bx-transfer-alt text-5xl text-pink-400 animate-bounce'></i>
+<p class="mt-2">AJAX</p>
+</div>
+
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bxl-html5 text-5xl text-orange-500 animate-bounce'></i>
+<p class="mt-2">HTML5</p>
+</div>
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bxl-css3 text-5xl text-blue-500 animate-pulse'></i>
+<p class="mt-2">CSS3</p>
+</div>
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bxl-bootstrap text-5xl text-purple-600 animate-bounce'></i>
+<p class="mt-2">Bootstrap</p>
+</div>
+
+
+<div class="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition" data-aos="zoom-in">
+<i class='bx bxl-tailwind-css text-5xl text-cyan-400 animate-pulse'></i>
+<p class="mt-2">TailwindCSS</p>
+</div>
+
+
+</div>
+</section>
+  <!-- Projects -->
+  <section id="projects" class="py-20">
+    <h3 class="text-4xl font-bold text-center mb-12 gradient-text">Projects</h3>
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
+      <!-- Card -->
+      <article class="bg-gray-900 rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-500/40 transition group" data-aos="fade-up">
+        <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" alt="E‑Commerce" class="h-44 w-full object-cover group-hover:scale-[1.02] transition" />
+        <div class="p-6">
+          <h4 class="text-xl font-semibold text-cyan-400">E‑Commerce Store</h4>
+          <p class="mt-2 text-gray-400">Laravel + MySQL shop with admin, cart, and payments.</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded tag text-xs">Laravel</span>
+            <span class="px-2 py-1 rounded tag text-xs">MySQL</span>
+            <span class="px-2 py-1 rounded tag text-xs">Stripe</span>
+          </div>
+        </div>
+      </article>
+      <!-- Card -->
+      <article class="bg-gray-900 rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-500/40 transition group" data-aos="fade-up" data-aos-delay="100">
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop" alt="Portfolio" class="h-44 w-full object-cover group-hover:scale-[1.02] transition" />
+        <div class="p-6">
+          <h4 class="text-xl font-semibold text-cyan-400">Animated Portfolio</h4>
+          <p class="mt-2 text-gray-400">Tailwind + AOS + Typed.js with smooth dark UI.</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded tag text-xs">Tailwind</span>
+            <span class="px-2 py-1 rounded tag text-xs">AOS</span>
+            <span class="px-2 py-1 rounded tag text-xs">Typed.js</span>
+          </div>
+        </div>
+      </article>
+      <!-- Card -->
+      <article class="bg-gray-900 rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-500/40 transition group" data-aos="fade-up" data-aos-delay="200">
+        <img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?q=80&w=1200&auto=format&fit=crop" alt="Blog CMS" class="h-44 w-full object-cover group-hover:scale-[1.02] transition" />
+        <div class="p-6">
+          <h4 class="text-xl font-semibold text-cyan-400">Blog CMS</h4>
+          <p class="mt-2 text-gray-400">Dynamic posts, auth, and dashboard using Laravel.</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded tag text-xs">Laravel</span>
+            <span class="px-2 py-1 rounded tag text-xs">Blade</span>
+            <span class="px-2 py-1 rounded tag text-xs">REST</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-20 bg-gray-900">
+    <h3 class="text-4xl font-bold text-center mb-12 gradient-text">Services</h3>
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+      <div class="bg-gray-800 rounded-2xl p-6 border border-white/5 hover:border-cyan-500/40 transition" data-aos="flip-left">
+        <i class='bx bx-code-block text-4xl'></i>
+        <h4 class="mt-4 text-xl font-semibold">Web Development</h4>
+        <p class="mt-2 text-gray-400">Custom, responsive websites with clean code.</p>
+      </div>
+      <div class="bg-gray-800 rounded-2xl p-6 border border-white/5 hover:border-cyan-500/40 transition" data-aos="flip-left" data-aos-delay="100">
+        <i class='bx bx-cloud text-4xl'></i>
+        <h4 class="mt-4 text-xl font-semibold">API Integration</h4>
+        <p class="mt-2 text-gray-400">RESTful APIs, payment gateways, 3rd‑party services.</p>
+      </div>
+      <div class="bg-gray-800 rounded-2xl p-6 border border-white/5 hover:border-cyan-500/40 transition" data-aos="flip-left" data-aos-delay="200">
+        <i class='bx bx-data text-4xl'></i>
+        <h4 class="mt-4 text-xl font-semibold">Database Design</h4>
+        <p class="mt-2 text-gray-400">MySQL schema, optimization, backups, migrations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20">
+    <h3 class="text-4xl font-bold text-center mb-12 gradient-text">Contact</h3>
+    <div class="max-w-xl mx-auto bg-gray-900 rounded-2xl p-6 border border-white/5" data-aos="zoom-in">
+      <form class="space-y-4">
+        <input type="text" placeholder="Your Name" class="w-full bg-gray-950 px-4 py-3 rounded-lg border border-gray-800 focus:outline-none focus:border-cyan-500">
+        <input type="email" placeholder="Your Email" class="w-full bg-gray-950 px-4 py-3 rounded-lg border border-gray-800 focus:outline-none focus:border-cyan-500">
+        <textarea rows="4" placeholder="Your Message" class="w-full bg-gray-950 px-4 py-3 rounded-lg border border-gray-800 focus:outline-none focus:border-cyan-500"></textarea>
+        <button class="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-600 to-fuchsia-600 font-semibold">Send</button>
+      </form>
+      <div class="mt-6 flex justify-center gap-5 text-2xl text-gray-400">
+        <a href="#" class="hover:text-white"><i class='bx bxl-github'></i></a>
+        <a href="#" class="hover:text-blue-400"><i class='bx bxl-linkedin'></i></a>
+        <a href="#" class="hover:text-green-400"><i class='bx bxl-whatsapp'></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scroll To Top Button -->
+  <button id="scrollTopBtn" aria-label="Scroll to top"><i class='bx bx-up-arrow-alt'></i></button>
+
+  <!-- Footer -->
+  <footer class="bg-gray-950 text-gray-500 text-center py-6">
+    <p>© 2025 Danish.dev | Crafted with ❤ using Tailwind, GSAP, AOS</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1000, once: true });</script>
+  <script>
+    // Typed.js
+    new Typed('#typed', { strings: ['Web Developer','Full Stack Engineer','Laravel Expert','MySQL Specialist','UI/UX Enthusiast'], typeSpeed: 80, backSpeed: 50, loop: true });
+
+    // Hero particles (minimal)
+    tsParticles.load("particles-js", { background:{ color:"transparent" }, particles:{ number:{ value:60 }, color:{ value:["#06b6d4","#9333ea","#f43f5e"] }, shape:{ type:"circle" }, opacity:{ value:0.6 }, size:{ value:{ min:1, max:4 } }, move:{ enable:true, speed:2 }, links:{ enable:true, distance:150, color:"#888", opacity:0.4 } } });
+
+    // Theme toggle (light/dark)
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('bg-gray-100');
+      document.body.classList.toggle('text-gray-900');
+    });
+
+    // Scroll progress + to-top
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (scrollTop / scrollHeight) * 100;
+      document.getElementById('scroll-progress').style.width = scrolled + '%';
+      scrollBtn.style.display = scrollTop > 300 ? 'block' : 'none';
+    });
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    // theme toggle
+    const body = document.body;
+    const navbar = document.getElementById('navbar');
+    const btn = document.getElementById('mode');
+    btn.addEventListener('click', ()=>{
+      body.classList.toggle('light');
+      if(body.classList.contains('light')){
+        body.classList.replace('bg-gray-950','bg-gray-50');
+        body.classList.replace('text-gray-100','text-gray-900');
+        navbar.classList.replace('glass','light-glass');
+        btn.innerHTML = "<i class='bx bx-sun'></i>";
+      } else {
+        body.classList.replace('bg-gray-50','bg-gray-950');
+        body.classList.replace('text-gray-900','text-gray-100');
+        navbar.classList.replace('light-glass','glass');
+        btn.innerHTML = "<i class='bx bx-moon'></i>";
+      }
+    });
+  </script>
+</body>
+</html>

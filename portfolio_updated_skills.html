@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danish - NextGen Animated Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .gradient-text { background: linear-gradient(90deg,#06b6d4,#9333ea,#f43f5e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    #particles-js { position: absolute; width: 100%; height: 100%; z-index: 0; }
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 5px;
+      background: linear-gradient(to right, #06b6d4, #9333ea, #f43f5e);
+      z-index: 1000;
+      transition: width 0.3s ease-in-out;
+    }
+    #scrollToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(to right,#06b6d4,#9333ea);
+      color: white;
+      padding: 12px;
+      border-radius: 50%;
+      font-size: 24px;
+      display: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6,182,212, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(6,182,212, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6,182,212, 0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 font-sans">
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Scroll to Top Button -->
+  <div id="scrollToTop"><i class='bx bx-up-arrow-alt'></i></div>
+
+  <!-- Hero -->
+  <section id="hero" class="h-screen flex items-center justify-center text-center relative overflow-hidden">
+    <div id="particles-js"></div>
+    <div class="relative z-10">
+      <h2 class="text-5xl md:text-7xl font-extrabold gradient-text">Hi, I'm Danish</h2>
+      <p class="mt-4 text-xl md:text-2xl text-gray-300"><span id="typed"></span></p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-20 bg-gray-900">
+    <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Skills</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 max-w-6xl mx-auto px-6">
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-html5 text-5xl text-orange-500'></i><p class="mt-2">HTML</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-css3 text-5xl text-blue-500'></i><p class="mt-2">CSS</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-javascript text-5xl text-yellow-400'></i><p class="mt-2">JavaScript</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-tailwind-css text-5xl text-cyan-400'></i><p class="mt-2">Tailwind</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-bootstrap text-5xl text-purple-600'></i><p class="mt-2">Bootstrap</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-php text-5xl text-indigo-400'></i><p class="mt-2">PHP</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-laravel text-5xl text-red-500'></i><p class="mt-2">Laravel</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxs-data text-5xl text-green-400'></i><p class="mt-2">MySQL</p></div>
+    </div>
+  </section>
+
+  <!-- Counters Section -->
+  <section id="counters" class="py-20 max-w-6xl mx-auto px-6 text-center">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div class="text-4xl font-bold gradient-text" data-counter="20">0</div>
+      <p class="text-gray-400">Projects Completed</p>
+      <div class="text-4xl font-bold gradient-text" data-counter="10">0</div>
+      <p class="text-gray-400">Happy Clients</p>
+      <div class="text-4xl font-bold gradient-text" data-counter="5">0</div>
+      <p class="text-gray-400">Years Experience</p>
+      <div class="text-4xl font-bold gradient-text" data-counter="15">0</div>
+      <p class="text-gray-400">Awards</p>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1000, once: true });</script>
+  <script>
+    // Typed.js
+    new Typed('#typed', { strings: ['Web Developer','Full Stack Engineer','Laravel Expert','UI/UX Enthusiast'], typeSpeed: 80, backSpeed: 50, loop: true });
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (scrollTop / scrollHeight) * 100;
+      document.getElementById('scroll-progress').style.width = scrolled + "%";
+      document.getElementById('scrollToTop').style.display = scrollTop > 200 ? 'block' : 'none';
+    });
+
+    // Scroll to Top
+    document.getElementById('scrollToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Counters Animation
+    const counters = document.querySelectorAll('[data-counter]');
+    const speed = 200;
+    const animateCounters = () => {
+      counters.forEach(counter => {
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-counter');
+          const count = +counter.innerText;
+          const increment = target / speed;
+          if (count < target) {
+            counter.innerText = Math.ceil(count + increment);
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target;
+          }
+        };
+        updateCount();
+      });
+    };
+
+    let triggered = false;
+    window.addEventListener('scroll', () => {
+      const countersSection = document.getElementById('counters');
+      const rect = countersSection.getBoundingClientRect();
+      if (rect.top < window.innerHeight && !triggered) {
+        animateCounters();
+        triggered = true;
+      }
+    });
+  </script>
+</body>
+</html>
