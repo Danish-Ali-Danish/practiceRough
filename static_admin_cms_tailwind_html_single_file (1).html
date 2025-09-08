@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gradient CMS Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .fade { animation: fadeIn 0.4s ease-in-out; }
+    @keyframes fadeIn { from {opacity:0; transform: translateY(8px);} to {opacity:1; transform:translateY(0);} }
+  </style>
+</head>
+<body class="flex h-screen bg-gray-900 text-gray-100">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gradient-to-b from-purple-600 via-pink-600 to-blue-600 flex flex-col">
+    <div class="p-6 text-2xl font-bold text-white">🌈 GradientCMS</div>
+    <nav class="flex-1 space-y-2 p-4">
+      <button class="nav" onclick="showPage('dashboard')">📊 Dashboard</button>
+      <button class="nav" onclick="showPage('posts')">📝 Posts</button>
+      <button class="nav" onclick="showPage('media')">🖼️ Media</button>
+      <button class="nav" onclick="showPage('comments')">💬 Comments</button>
+      <button class="nav" onclick="showPage('users')">👤 Users</button>
+      <button class="nav" onclick="showPage('settings')">⚙️ Settings</button>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <div class="flex-1 flex flex-col">
+    <!-- Topbar -->
+    <header class="h-14 bg-gray-800 flex items-center justify-between px-6">
+      <h1 class="font-semibold">Admin Panel</h1>
+      <div class="flex items-center space-x-4">
+        <input type="text" placeholder="Search..." class="px-2 py-1 rounded bg-gray-700 text-sm">
+        <button class="px-3 py-1 bg-purple-600 rounded">Profile</button>
+      </div>
+    </header>
+
+    <!-- Pages -->
+    <main class="p-6 flex-1 overflow-auto">
+      <div id="dashboard" class="page fade">📊 <b>Dashboard</b> stats here.</div>
+      <div id="posts" class="page hidden fade">📝 <b>Posts</b> list.</div>
+      <div id="media" class="page hidden fade">🖼️ <b>Media</b> library.</div>
+      <div id="comments" class="page hidden fade">💬 <b>Comments</b> section.</div>
+      <div id="users" class="page hidden fade">👤 <b>Users</b> management.</div>
+      <div id="settings" class="page hidden fade">⚙️ <b>Settings</b> configuration.</div>
+    </main>
+  </div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+  }
+</script>
+
+<style>
+  .nav { display:block; width:100%; text-align:left; padding:0.75rem; border-radius:0.5rem; color:white; transition:all 0.2s; }
+  .nav:hover { background:rgba(255,255,255,0.2); }
+</style>
+</body>
+</html>

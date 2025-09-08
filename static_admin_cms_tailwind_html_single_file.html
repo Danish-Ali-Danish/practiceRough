@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Premium CMS — Admin (Static)</title>
+  <!-- Tailwind CDN (static, no build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config (extend colors if needed)
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { brand: { 50:'#eef2ff', 600:'#4f46e5', 700:'#4338ca' } } } }
+    }
+  </script>
+  <style>
+    /* Minimal styles for scrollbar + transitions */
+    ::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:9999px}html.dark ::-webkit-scrollbar-thumb{background:#475569}
+  </style>
+</head>
+<body class="h-full bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
+<!--
+PSEUDOCODE / PLAN
+1) Global Shell
+   - Sidebar (nav): Dashboard, Posts, Media, Users, Comments, Taxonomy, Settings, Roles
+   - Header: Search, Quick actions, Dark-mode toggle, Profile menu (non-functional)
+   - Main: Section containers; only one visible at a time via data-page
+2) Data (in-memory ONLY for demo): sample arrays for posts, users, media, comments, categories, tags, settings
+3) Interactions (vanilla JS):
+   - Nav switch (show/hide sections)
+   - Dark mode toggle with localStorage persistence
+   - Modals (open/close): New Post, New User, Upload Media
+   - Simple renderers to populate tables/grids from arrays
+   - Backup: Export demo JSON; Import: read file and replace in-memory (demo only)
+   - Filters/search (client-side)
+4) Accessibility: focus styles, aria-attributes for dialogs
+5) Non-goals: No API, no routing; single static HTML file
+-->
+
+<!-- App Container -->
+<div class="min-h-screen grid grid-cols-1 lg:grid-cols-[260px_1fr]">
+  <!-- Sidebar -->
+  <aside class="sticky top-0 h-screen hidden lg:flex flex-col border-r border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-800/80 backdrop-blur">
+    <div class="px-5 h-16 flex items-center gap-2 border-b border-slate-200 dark:border-slate-800">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-fuchsia-500"></div>
+      <div class="font-extrabold">Premium<span class="text-indigo-600">CMS</span></div>
+    </div>
+    <nav class="p-3 space-y-1 text-sm" id="sidebar">
+      <!-- buttons use data-target to switch main section -->
+      <button class="nav-btn" data-target="dashboard">📊 Dashboard</button>
+      <button class="nav-btn" data-target="posts">📝 Posts</button>
+      <button class="nav-btn" data-target="media">🖼️ Media</button>
+      <button class="nav-btn" data-target="users">👤 Users</button>
+      <button class="nav-btn" data-target="comments">💬 Comments</button>
+      <button class="nav-btn" data-target="taxonomy">🏷️ Taxonomy</button>
+      <button class="nav-btn" data-target="settings">⚙️ Settings</button>
+      <button class="nav-btn" data-target="roles">🔐 Roles</button>
+    </nav>
+    <div class="mt-auto p-3 text-xs text-slate-500">Static demo — no backend</div>
+  </aside>
+
+  <!-- Content -->
+  <div class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="sticky top-0 backdrop-blur bg-white/70 dark:bg-slate-900/70 border-b border-slate-200 dark:border-slate-800">
+      <div class="h-16 max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2 w-full max-w-xl">
+          <input id="globalSearch" placeholder="Search…" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"/>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="darkToggle" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-700">🌙</button>
+          <button id="exportBtn" class="px-3 py-2 rounded-xl bg-indigo-600 text-white">Export</button>
+          <label class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-700 cursor-pointer">Import
+            <input id="importInput" type="file" accept="application/json" class="hidden"/>
+          </label>
+          <div class="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Sections -->
+    <main class="max-w-7xl mx-auto w-full p-4 space-y-6">
+
+      <!-- DASHBOARD -->
+      <section data-page="dashboard" class="page">
+        <h2 class="text-xl font-semibold mb-3">Overview</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="stat-card"><div class="label">Posts</div><div class="value" id="statPosts">0</div></div>
+          <div class="stat-card"><div class="label">Published</div><div class="value" id="statPublished">0</div></div>
+          <div class="stat-card"><div class="label">Users</div><div class="value" id="statUsers">0</div></div>
+          <div class="stat-card"><div class="label">Media</div><div class="value" id="statMedia">0</div></div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="panel">
+            <div class="panel-title">Recent Activity</div>
+            <ul id="activity" class="space-y-2 text-sm text-slate-600 dark:text-slate-300"></ul>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Traffic (mock)</div>
+            <div class="h-40 rounded-lg bg-gradient-to-r from-indigo-100 to-fuchsia-100 dark:from-slate-700 dark:to-slate-600"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- POSTS -->
+      <section data-page="posts" class="page hidden">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-xl font-semibold">Posts</h2>
+          <div class="flex gap-2">
+            <select id="postFilter" class="px-2 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+              <option value="all">All</option>
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+              <option value="scheduled">Scheduled</option>
+            </select>
+            <button data-open="modalPost" class="btn-primary">New Post</button>
+          </div>
+        </div>
+        <div class="panel overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-left border-b border-slate-200 dark:border-slate-700">
+              <tr class="text-slate-500"><th class="py-2">Title</th><th>Status</th><th>Updated</th><th>Tags</th><th class="text-right">Actions</th></tr>
+            </thead>
+            <tbody id="postRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MEDIA -->
+      <section data-page="media" class="page hidden">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-xl font-semibold">Media Library</h2>
+          <label class="btn-secondary cursor-pointer">Upload
+            <input id="mediaFile" type="file" accept="image/*" class="hidden" />
+          </label>
+        </div>
+        <div id="mediaGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+      </section>
+
+      <!-- USERS -->
+      <section data-page="users" class="page hidden">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-xl font-semibold">Users</h2>
+          <button data-open="modalUser" class="btn-primary">Invite User</button>
+        </div>
+        <div class="panel overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-left border-b border-slate-200 dark:border-slate-700">
+              <tr class="text-slate-500"><th class="py-2">Name</th><th>Email</th><th>Role</th><th>Status</th><th class="text-right">Actions</th></tr>
+            </thead>
+            <tbody id="userRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- COMMENTS -->
+      <section data-page="comments" class="page hidden">
+        <h2 class="text-xl font-semibold mb-3">Comments Moderation</h2>
+        <div class="panel overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-left border-b border-slate-200 dark:border-slate-700">
+              <tr class="text-slate-500"><th class="py-2">Post</th><th>Author</th><th>Comment</th><th>Status</th><th class="text-right">Actions</th></tr>
+            </thead>
+            <tbody id="commentRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAXONOMY -->
+      <section data-page="taxonomy" class="page hidden">
+        <h2 class="text-xl font-semibold mb-3">Taxonomy</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="panel">
+            <div class="panel-title">Categories</div>
+            <div class="flex gap-2 mb-3">
+              <input id="newCat" placeholder="Add category" class="input"/>
+              <button id="addCat" class="btn-secondary">Add</button>
+            </div>
+            <ul id="catList" class="space-y-2 text-sm"></ul>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Tags</div>
+            <div class="flex gap-2 mb-3">
+              <input id="newTag" placeholder="Add tag" class="input"/>
+              <button id="addTag" class="btn-secondary">Add</button>
+            </div>
+            <ul id="tagList" class="space-y-2 text-sm"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section data-page="settings" class="page hidden">
+        <h2 class="text-xl font-semibold mb-3">Site Settings</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <form id="settingsForm" class="panel space-y-3">
+            <div>
+              <label class="lbl">Site Title</label>
+              <input name="siteTitle" class="input" />
+            </div>
+            <div>
+              <label class="lbl">Description</label>
+              <textarea name="description" class="input"></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="lbl">Twitter</label>
+                <input name="twitter" class="input" placeholder="@handle" />
+              </div>
+              <div>
+                <label class="lbl">Facebook</label>
+                <input name="facebook" class="input"/>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <input id="darkSetting" type="checkbox" class="h-4 w-4" />
+              <label for="darkSetting">Enable dark mode</label>
+            </div>
+            <div class="flex gap-2">
+              <button type="submit" class="btn-primary">Save</button>
+              <button type="button" id="resetSettings" class="btn-secondary">Reset</button>
+            </div>
+          </form>
+          <div class="panel">
+            <div class="panel-title">SEO Preview</div>
+            <div class="rounded-lg border border-slate-200 dark:border-slate-700 p-4 space-y-2">
+              <div id="seoTitle" class="text-indigo-600 font-semibold truncate">Title</div>
+              <div id="seoUrl" class="text-sm text-emerald-700 truncate">example.com/post-slug</div>
+              <div id="seoDesc" class="text-sm text-slate-600 dark:text-slate-300 line-clamp-3">Description goes here…</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ROLES -->
+      <section data-page="roles" class="page hidden">
+        <h2 class="text-xl font-semibold mb-3">Roles & Permissions</h2>
+        <div class="panel overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-left border-b border-slate-200 dark:border-slate-700">
+              <tr class="text-slate-500"><th class="py-2">Permission</th><th>Viewer</th><th>Editor</th><th>Admin</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="py-2">Read posts</td><td>✔️</td><td>✔️</td><td>✔️</td></tr>
+              <tr><td class="py-2">Write/edit posts</td><td>❌</td><td>✔️</td><td>✔️</td></tr>
+              <tr><td class="py-2">Publish posts</td><td>❌</td><td>✔️</td><td>✔️</td></tr>
+              <tr><td class="py-2">Manage users</td><td>❌</td><td>❌</td><td>✔️</td></tr>
+              <tr><td class="py-2">Site settings</td><td>❌</td><td>❌</td><td>✔️</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-800 p-4 text-xs text-slate-500 text-center">Static Admin UI • Tailwind • No backend</footer>
+  </div>
+</div>
+<!-- TOAST -->
+<div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 hidden px-4 py-2 rounded-xl bg-slate-900 text-white text-sm shadow-lg">Saved</div>
+
+<!-- UTIL COMPONENTS / TEMPLATES RENDERED BY JS -->
+<template id="rowPost">
+  <tr>
+    <td class="py-2 font-medium title"></td>
+    <td class="status"></td>
+    <td class="updated text-slate-500"></td>
+    <td class="tags text-slate-500"></td>
+    <td class="text-right space-x-2">
+      <button class="btn-xs btn-secondary">Edit</button>
+      <button class="btn-xs btn-danger">Delete</button>
+    </td>
+  </tr>
+</template>
+
+<template id="rowUser">
+  <tr>
+    <td class="py-2 font-medium name"></td>
+    <td class="email text-slate-500"></td>
+    <td class="role"></td>
+    <td class="status"></td>
+    <td class="text-right space-x-2"><button class="btn-xs btn-secondary">Edit</button><button class="btn-xs btn-danger">Delete</button></td>
+  </tr>
+</template>
+
+<template id="rowComment">
+  <tr>
+    <td class="py-2 post"></td>
+    <td class="author"></td>
+    <td class="body text-slate-500"></td>
+    <td class="cstatus"></td>
+    <td class="text-right space-x-2"><button class="btn-xs btn-success">Approve</button><button class="btn-xs btn-danger">Delete</button></td>
+  </tr>
+</template>
+
+<template id="mediaCard">
+  <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+    <div class="h-32 bg-slate-100 dark:bg-slate-700 img"></div>
+    <div class="p-2 text-xs name"></div>
+  </div>
+</template>
+
+<!-- SCRIPTS -->
+<script>
+  // --- Sample Data (in-memory only) ---
+  const db = {
+    settings: { siteTitle: 'Premium CMS', description: 'Static Admin Panel', darkMode: false, social: { twitter:'', facebook:'' } },
+    posts: [
+      { id:'p1', title:'Welcome Post', slug:'welcome-post', status:'published', updatedAt: new Date().toISOString(), tags:['intro','news'] },
+      { id:'p2', title:'Draft Ideas', slug:'draft-ideas', status:'draft', updatedAt: new Date().toISOString(), tags:['ideas'] },
+      { id:'p3', title:'Scheduled Launch', slug:'scheduled-launch', status:'scheduled', updatedAt: new Date().toISOString(), tags:['launch'] },
+    ],
+    users: [
+      { id:'u1', name:'Admin User', email:'admin@example.com', role:'admin', active:true },
+      { id:'u2', name:'Editor Jane', email:'jane@example.com', role:'editor', active:true },
+    ],
+    comments: [
+      { id:'c1', postId:'p1', author:'Alex', body:'Great article!', status:'pending' },
+      { id:'c2', postId:'p1', author:'Sam', body:'Nice work!', status:'approved' },
+    ],
+    media: [
+      { id:'m1', name:'Cover.jpg', url:'', placeholder:true },
+      { id:'m2', name:'Author.png', url:'', placeholder:true },
+    ],
+    taxonomy: { categories:['General','News'], tags:['intro','news','ideas','launch'] },
+    activity: []
+  };
+
+  // --- Helpers ---
+  const $ = (sel, ctx=document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+  const toast = (msg) => { const el = $('#toast'); el.textContent = msg; el.classList.remove('hidden'); setTimeout(()=> el.classList.add('hidden'), 1600); };
+  const now = () => new Date().toLocaleString();
+
+  // --- Dark Mode ---
+  const darkKey = 'cms_dark';
+  const applyDark = (v) => document.documentElement.classList.toggle('dark', v);
+  applyDark(localStorage.getItem(darkKey) === '1');
+  $('#darkToggle').addEventListener('click', () => {
+    const v = !document.documentElement.classList.contains('dark');
+    applyDark(v); localStorage.setItem(darkKey, v ? '1' : '0');
+    $('#darkSetting').checked = v; // sync settings checkbox
+  });
+
+  // --- Navigation ---
+  $$('#sidebar .nav-btn').forEach(btn => {
+    btn.classList.add('w-full','text-left','px-3','py-2','rounded-xl','hover:bg-slate-100','dark:hover:bg-slate-700');
+    btn.addEventListener('click', () => {
+      const tgt = btn.dataset.target;
+      $$('.page').forEach(sec => sec.classList.toggle('hidden', sec.dataset.page !== tgt));
+      $$('#sidebar .nav-btn').forEach(b => b.classList.remove('bg-indigo-600','text-white'));
+      btn.classList.add('bg-indigo-600','text-white');
+    });
+  });
+  // default active
+  $$('#sidebar .nav-btn')[0].click();
+
+  // --- Renderers ---
+  function renderStats(){
+    $('#statPosts').textContent = db.posts.length;
+    $('#statPublished').textContent = db.posts.filter(p=>p.status==='published').length;
+    $('#statUsers').textContent = db.users.length;
+    $('#statMedia').textContent = db.media.length;
+  }
+  function pushActivity(text){ db.activity.unshift(`${now()} — ${text}`); renderActivity(); }
+  function renderActivity(){ const ul = $('#activity'); ul.innerHTML = db.activity.slice(0,10).map(x=>`<li>${x}</li>`).join(''); }
+
+  function renderPosts(){
+    const tbody = $('#postRows'); tbody.innerHTML = '';
+    const tpl = $('#rowPost');
+    const filter = $('#postFilter').value;
+    const q = $('#globalSearch').value.toLowerCase();
+    db.posts.filter(p => (filter==='all' || p.status===filter)).filter(p => !q || p.title.toLowerCase().includes(q) || p.tags.join(',').includes(q)).forEach(p => {
+      const row = tpl.content.cloneNode(true);
+      row.querySelector('.title').textContent = p.title;
+      row.querySelector('.status').textContent = p.status;
+      row.querySelector('.updated').textContent = new Date(p.updatedAt).toLocaleString();
+      row.querySelector('.tags').textContent = p.tags.join(', ');
+      const [editBtn, delBtn] = row.querySelectorAll('button');
+      editBtn.addEventListener('click', () => { openModal('modalPost'); const f = $('#postForm'); f.title.value = p.title; f.slug.value = p.slug; f.status.value = p.status; f.tags.value = p.tags.join(','); f.excerpt.value = p.excerpt||''; f.content.value = p.content||''; f.dataset.editId = p.id; });
+      delBtn.addEventListener('click', () => { if(confirm('Delete post?')) { db.posts = db.posts.filter(x=>x.id!==p.id); pushActivity(`Deleted post: ${p.title}`); renderAll(); }});
+      tbody.appendChild(row);
+    });
+  }
+
+  function renderUsers(){
+    const tbody = $('#userRows'); tbody.innerHTML = '';
+    const tpl = $('#rowUser');
+    db.users.forEach(u => {
+      const row = tpl.content.cloneNode(true);
+      row.querySelector('.name').textContent = u.name;
+      row.querySelector('.email').textContent = u.email;
+      row.querySelector('.role').textContent = u.role;
+      row.querySelector('.status').textContent = u.active ? 'Active' : 'Disabled';
+      const [editBtn, delBtn] = row.querySelectorAll('button');
+      editBtn.addEventListener('click', () => { openModal('modalUser'); const f = $('#userForm'); f.name.value = u.name; f.email.value = u.email; f.role.value = u.role; f.dataset.editId = u.id; });
+      delBtn.addEventListener('click', () => { if(confirm('Delete user?')) { db.users = db.users.filter(x=>x.id!==u.id); pushActivity(`Removed user: ${u.email}`); renderAll(); }});
+      tbody.appendChild(row);
+    });
+  }
+
+  function renderComments(){
+    const tbody = $('#commentRows'); tbody.innerHTML = '';
+    const tpl = $('#rowComment');
+    db.comments.forEach(c => {
+      const row = tpl.content.cloneNode(true);
+      row.querySelector('.post').textContent = db.posts.find(p=>p.id===c.postId)?.title || 'Unknown';
+      row.querySelector('.author').textContent = c.author;
+      row.querySelector('.body').textContent = c.body;
+      row.querySelector('.cstatus').textContent = c.status;
+      const [approveBtn, delBtn] = row.querySelectorAll('button');
+      approveBtn.addEventListener('click', () => { c.status = 'approved'; pushActivity(`Approved comment by ${c.author}`); renderComments(); });
+      delBtn.addEventListener('click', () => { if(confirm('Delete comment?')) { db.comments = db.comments.filter(x=>x.id!==c.id); pushActivity('Deleted a comment'); renderComments(); renderStats(); }});
+      tbody.appendChild(row);
+    });
+  }
+
+  function renderMedia(){
+    const grid = $('#mediaGrid'); grid.innerHTML = '';
+    const tpl = $('#mediaCard');
+    db.media.forEach(m => {
+      const card = tpl.content.cloneNode(true);
+      const img = card.querySelector('.img');
+      img.style.backgroundImage = m.url ? `url(${m.url})` : 'linear-gradient(45deg,#c7d2fe,#f5d0fe)';
+      img.style.backgroundSize = 'cover';
+      card.querySelector('.name').textContent = m.name;
+      grid.appendChild(card);
+    });
+  }
+
+  function renderTaxonomy(){
+    const catList = $('#catList'); const tagList = $('#tagList');
+    catList.innerHTML = db.taxonomy.categories.map(c=> `<li class='flex items-center justify-between p-2 rounded bg-slate-100 dark:bg-slate-700'><span>${c}</span><button class='btn-xs btn-danger' data-remove-cat='${c}'>Remove</button></li>`).join('');
+    tagList.innerHTML = db.taxonomy.tags.map(t=> `<li class='flex items-center justify-between p-2 rounded bg-slate-100 dark:bg-slate-700'><span>${t}</span><button class='btn-xs btn-danger' data-remove-tag='${t}'>Remove</button></li>`).join('');
+    $$('[data-remove-cat]').forEach(b=> b.addEventListener('click', ()=> { const c=b.dataset.removeCat; db.taxonomy.categories = db.taxonomy.categories.filter(x=>x!==c); pushActivity(`Removed category: ${c}`); renderTaxonomy(); }));
+    $$('[data-remove-tag]').forEach(b=> b.addEventListener('click', ()=> { const t=b.dataset.removeTag; db.taxonomy.tags = db.taxonomy.tags.filter(x=>x!==t); pushActivity(`Removed tag: ${t}`); renderTaxonomy(); }));
+  }
+
+  function renderSettings(){
+    const f = $('#settingsForm');
+    f.siteTitle.value = db.settings.siteTitle;
+    f.description.value = db.settings.description;
+    f.twitter.value = db.settings.social.twitter || '';
+    f.facebook.value = db.settings.social.facebook || '';
+    $('#darkSetting').checked = document.documentElement.classList.contains('dark');
+    // SEO preview
+    $('#seoTitle').textContent = db.settings.siteTitle + ' — Example Post Title';
+    $('#seoDesc').textContent = db.settings.description || 'No description';
+    $('#seoUrl').textContent = 'example.com/example-post';
+  }
+
+  function renderAll(){
+    renderStats();
+    renderActivity();
+    renderPosts();
+    renderUsers();
+    renderComments();
+    renderMedia();
+    renderTaxonomy();
+    renderSettings();
+  }
+
+  // Initial render
+  renderAll();
+
+  // --- Search and filters ---
+  $('#globalSearch').addEventListener('input', renderPosts);
+  $('#postFilter').addEventListener('change', renderPosts);
+
+  // --- Modals ---
+  function openModal(id){ const m = document.getElementById(id); m.classList.remove('hidden'); m.setAttribute('aria-hidden','false'); }
+  function closeModal(id){ const m = document.getElementById(id); m.classList.add('hidden'); m.setAttribute('aria-hidden','true'); const f = m.querySelector('form'); if(f) f.reset(), delete f.dataset.editId; }
+  $$('[data-open]').forEach(b=> b.addEventListener('click', ()=> openModal(b.dataset.open)));
+  $$('[data-close]').forEach(b=> b.addEventListener('click', ()=> closeModal(b.closest('.modal').id)));
+  window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ $$('.modal').forEach(m=> m.classList.add('hidden')) } });
+
+  // --- Forms ---
+  $('#postForm').addEventListener('submit', (e)=>{
+    e.preventDefault(); const f = e.currentTarget; const data = Object.fromEntries(new FormData(f));
+    if(f.dataset.editId){ const p = db.posts.find(x=>x.id===f.dataset.editId); Object.assign(p, { ...data, tags: (data.tags||'').split(',').map(s=>s.trim()).filter(Boolean), updatedAt: new Date().toISOString() }); pushActivity(`Updated post: ${p.title}`); }
+    else { const p = { id: 'p'+Math.random().toString(36).slice(2,7), title:data.title, slug:data.slug||data.title.toLowerCase().replace(/[^a-z0-9]+/g,'-'), status:data.status, updatedAt:new Date().toISOString(), tags:(data.tags||'').split(',').map(s=>s.trim()).filter(Boolean) }; db.posts.unshift(p); pushActivity(`Created post: ${p.title}`); }
+    closeModal('modalPost'); renderAll(); toast('Post saved');
+  });
+
+  $('#userForm').addEventListener('submit', (e)=>{
+    e.preventDefault(); const f = e.currentTarget; const data = Object.fromEntries(new FormData(f));
+    if(f.dataset.editId){ const u = db.users.find(x=>x.id===f.dataset.editId); Object.assign(u, data); pushActivity(`Updated user: ${u.email}`); }
+    else { const u = { id:'u'+Math.random().toString(36).slice(2,7), ...data, active:true }; db.users.push(u); pushActivity(`Invited user: ${u.email}`); }
+    closeModal('modalUser'); renderUsers(); toast('User saved');
+  });
+
+  // Taxonomy add
+  $('#addCat').addEventListener('click', ()=> { const v = $('#newCat').value.trim(); if(!v) return; db.taxonomy.categories.push(v); $('#newCat').value=''; pushActivity(`Added category: ${v}`); renderTaxonomy(); });
+  $('#addTag').addEventListener('click', ()=> { const v = $('#newTag').value.trim(); if(!v) return; db.taxonomy.tags.push(v); $('#newTag').value=''; pushActivity(`Added tag: ${v}`); renderTaxonomy(); });
+
+  // Media upload (DataURL preview only; not persisted)
+  $('#mediaFile').addEventListener('change', (e)=>{
+    const file = e.target.files[0]; if(!file) return; const reader = new FileReader();
+    reader.onload = ()=> { db.media.unshift({ id:'m'+Math.random().toString(36).slice(2,7), name:file.name, url:reader.result }); pushActivity(`Uploaded media: ${file.name}`); renderMedia(); renderStats(); toast('Uploaded'); };
+    reader.readAsDataURL(file);
+  });
+
+  // Settings form
+  $('#settingsForm').addEventListener('submit', (e)=>{
+    e.preventDefault(); const data = Object.fromEntries(new FormData(e.currentTarget));
+    db.settings.siteTitle = data.siteTitle; db.settings.description = data.description; db.settings.social.twitter = data.twitter; db.settings.social.facebook = data.facebook;
+    applyDark($('#darkSetting').checked); localStorage.setItem(darkKey, $('#darkSetting').checked ? '1' : '0');
+    renderSettings(); toast('Settings saved');
+  });
+  $('#resetSettings').addEventListener('click', ()=> { db.settings = { siteTitle:'Premium CMS', description:'Static Admin Panel', social:{} }; renderSettings(); toast('Reset'); });
+
+  // Export / Import
+  $('#exportBtn').addEventListener('click', ()=>{
+    const data = JSON.stringify(db, null, 2);
+    const blob = new Blob([data], { type:'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'cms-backup.json'; a.click(); URL.revokeObjectURL(url);
+  });
+  $('#importInput').addEventListener('change', (e)=>{
+    const file = e.target.files[0]; if(!file) return; const reader = new FileReader();
+    reader.onload = ()=> { try { const data = JSON.parse(reader.result); Object.assign(db, data); renderAll(); toast('Imported'); } catch { alert('Invalid JSON'); } };
+    reader.readAsText(file);
+  });
+</script>
+
+<!-- Utility classes -->
+<script>
+  // Buttons and panels utilities
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.btn-primary').forEach(b=> b.classList.add('px-3','py-2','rounded-xl','bg-indigo-600','text-white','hover:bg-indigo-700'));
+    document.querySelectorAll('.btn-secondary').forEach(b=> b.classList.add('px-3','py-2','rounded-xl','bg-slate-100','dark:bg-slate-700'));
+    document.querySelectorAll('.btn-danger').forEach(b=> b.classList.add('px-3','py-2','rounded-xl','bg-red-50','text-red-700'));
+    document.querySelectorAll('.btn-success').forEach(b=> b.classList.add('px-3','py-2','rounded-xl','bg-emerald-50','text-emerald-700'));
+    document.querySelectorAll('.btn-xs').forEach(b=> b.classList.add('px-2','py-1','rounded-lg','text-xs'));
+    document.querySelectorAll('.panel').forEach(p=> p.classList.add('bg-white','dark:bg-slate-800','rounded-2xl','p-4','shadow-sm'));
+    document.querySelectorAll('.panel .panel-title').forEach(t=> t.classList.add('font-semibold','mb-3'));
+    document.querySelectorAll('.stat-card').forEach(c=> c.classList.add('p-4','rounded-2xl','bg-gradient-to-tr','from-indigo-50','to-fuchsia-50','dark:from-slate-800','dark:to-slate-700'));
+    document.querySelectorAll('.stat-card .label').forEach(l=> l.classList.add('text-xs','text-slate-500'));
+    document.querySelectorAll('.stat-card .value').forEach(v=> v.classList.add('text-2xl','font-bold'));
+    document.querySelectorAll('.input').forEach(i=> i.classList.add('w-full','px-3','py-2','rounded-xl','border','border-slate-200','dark:border-slate-700','bg-white','dark:bg-slate-800'));
+    document.querySelectorAll('.lbl').forEach(l=> l.classList.add('block','text-xs','mb-1','text-slate-500'));
+  });
+</script>
+
+<!-- Modal utils -->
+<style>
+  .modal{position:fixed;inset:0;display:grid;place-items:center;background:rgb(0 0 0 / .5);z-index:50}
+  .modal-panel{width:100%;max-width:42rem;background:var(--tw-prose-bullets,white);color:inherit}/* white box */
+  .modal-panel{ @apply rounded-2xl p-4 bg-white dark:bg-slate-800 shadow-xl; }
+</style>
+
+</body>
+</html>
