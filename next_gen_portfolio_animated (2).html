@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danish - NextGen Animated Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .gradient-text { background: linear-gradient(90deg,#06b6d4,#9333ea,#f43f5e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    #particles-js { position: absolute; width: 100%; height: 100%; z-index: 0; }
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 5px;
+      background: linear-gradient(to right, #06b6d4, #9333ea, #f43f5e);
+      z-index: 1000;
+      transition: width 0.2s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 font-sans">
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Navbar -->
+  <nav class="fixed w-full z-50 bg-gray-900/80 backdrop-blur-lg shadow-lg">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <h1 class="text-2xl font-extrabold gradient-text">Danish.dev</h1>
+      <ul class="hidden md:flex space-x-8 font-medium">
+        <li><a href="#hero" class="hover:text-cyan-400 transition">Home</a></li>
+        <li><a href="#about" class="hover:text-cyan-400 transition">About</a></li>
+        <li><a href="#skills" class="hover:text-cyan-400 transition">Skills</a></li>
+        <li><a href="#projects" class="hover:text-cyan-400 transition">Projects</a></li>
+        <li><a href="#contact" class="hover:text-cyan-400 transition">Contact</a></li>
+      </ul>
+      <button id="themeToggle" class="text-2xl"><i class='bx bx-moon'></i></button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="h-screen flex items-center justify-center text-center relative overflow-hidden">
+    <div id="particles-js"></div>
+    <div class="relative z-10" data-aos="fade-up">
+      <h2 class="text-5xl md:text-7xl font-extrabold gradient-text">Hi, I'm Danish</h2>
+      <p class="mt-4 text-xl md:text-2xl text-gray-300"><span id="typed"></span></p>
+      <div class="mt-6 space-x-4">
+        <a href="#projects" class="hvr-bounce-to-right px-8 py-3 bg-cyan-600 rounded-full font-semibold transition">See Projects</a>
+        <a href="#contact" class="hvr-bounce-to-left px-8 py-3 bg-pink-600 rounded-full font-semibold transition">Hire Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-20 max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center mb-12 gradient-text">About Me</h2>
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_1pxqjqps.json" background="transparent" speed="1" style="width: 100%; height: 400px;" loop autoplay></lottie-player>
+      <p class="text-lg text-gray-300 leading-relaxed" data-aos="fade-left">
+        I'm <span class="text-cyan-400 font-semibold">Danish</span>, a <span class="text-cyan-400 font-semibold">Full Stack Developer</span> skilled in <strong>HTML, CSS, JS, Tailwind, Bootstrap, PHP, Laravel</strong>. I build modern, scalable apps with elegant UI & UX.
+      </p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-20 bg-gray-900">
+    <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Skills</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 max-w-6xl mx-auto px-6">
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-html5 text-5xl text-orange-500'></i><p class="mt-2">HTML</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-css3 text-5xl text-blue-500'></i><p class="mt-2">CSS</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-javascript text-5xl text-yellow-400'></i><p class="mt-2">JavaScript</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-tailwind-css text-5xl text-cyan-400'></i><p class="mt-2">Tailwind</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-bootstrap text-5xl text-purple-600'></i><p class="mt-2">Bootstrap</p></div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-center" data-aos="zoom-in"><i class='bx bxl-php text-5xl text-indigo-400'></i><p class="mt-2">PHP/Laravel</p></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-20 max-w-7xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Projects</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <div class="bg-gray-800 rounded-2xl shadow-lg overflow-hidden" data-aos="fade-up">
+        <img src="https://via.placeholder.com/500x300" class="w-full">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold text-cyan-400">E-Commerce Store</h3>
+          <p class="mt-2 text-gray-400">Laravel e-commerce platform with advanced features.</p>
+        </div>
+      </div>
+      <div class="bg-gray-800 rounded-2xl shadow-lg overflow-hidden" data-aos="fade-up">
+        <img src="https://via.placeholder.com/500x300" class="w-full">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold text-cyan-400">Portfolio Website</h3>
+          <p class="mt-2 text-gray-400">Tailwind + animations with AOS & Typed.js.</p>
+        </div>
+      </div>
+      <div class="bg-gray-800 rounded-2xl shadow-lg overflow-hidden" data-aos="fade-up">
+        <img src="https://via.placeholder.com/500x300" class="w-full">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold text-cyan-400">Blog CMS</h3>
+          <p class="mt-2 text-gray-400">Dynamic blogging platform using Laravel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 bg-gray-900">
+    <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Contact Me</h2>
+    <div class="max-w-2xl mx-auto bg-gray-800 rounded-2xl p-8 shadow-lg" data-aos="zoom-in">
+      <form class="space-y-4">
+        <input type="text" placeholder="Your Name" class="w-full bg-gray-900 px-4 py-3 rounded-lg border border-gray-700">
+        <input type="email" placeholder="Your Email" class="w-full bg-gray-900 px-4 py-3 rounded-lg border border-gray-700">
+        <textarea placeholder="Your Message" rows="4" class="w-full bg-gray-900 px-4 py-3 rounded-lg border border-gray-700"></textarea>
+        <button class="hvr-bounce-to-top w-full bg-gradient-to-r from-cyan-600 to-pink-600 py-3 rounded-lg font-semibold">Send</button>
+      </form>
+      <div class="flex justify-center space-x-6 mt-6 text-2xl text-gray-400">
+        <a href="#" class="hvr-grow"><i class='bx bxl-github hover:text-white'></i></a>
+        <a href="#" class="hvr-grow"><i class='bx bxl-linkedin hover:text-blue-400'></i></a>
+        <a href="#" class="hvr-grow"><i class='bx bxl-facebook hover:text-blue-600'></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-950 text-gray-500 text-center py-6">
+    <p>© 2025 Danish.dev | Crafted with ❤ using Tailwind, GSAP, AOS & Lottie</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1000, once: true });</script>
+
+  <script>
+    // Typed.js
+    new Typed('#typed', {
+      strings: ['Web Developer', 'Full Stack Engineer', 'Laravel Expert', 'UI/UX Enthusiast'],
+      typeSpeed: 80,
+      backSpeed: 50,
+      loop: true
+    });
+
+    // GSAP Animations
+    gsap.from("#hero h2", {opacity:0, y:-50, duration:1});
+    gsap.from("#hero p", {opacity:0, y:50, duration:1, delay:0.5});
+    gsap.from("#hero a", {opacity:0, scale:0.8, duration:1, delay:1, stagger:0.3});
+
+    // Particles.js
+    tsParticles.load("particles-js", {
+      background: { color: "transparent" },
+      particles: {
+        number: { value: 60 },
+        color: { value: ["#06b6d4", "#9333ea", "#f43f5e"] },
+        shape: { type: "circle" },
+        opacity: { value: 0.6 },
+        size: { value: { min: 1, max: 4 } },
+        move: { enable: true, speed: 2, direction: "none", outModes: "out" },
+        links: { enable: true, distance: 150, color: "#888", opacity: 0.4 }
+      }
+    });
+
+    // Theme Toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('bg-gray-100');
+      document.body.classList.toggle('text-gray-900');
+    });
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (scrollTop / scrollHeight) * 100;
+      document.getElementById('scroll-progress').style.width = scrolled + "%";
+    });
+  </script>
+</body>
+</html>

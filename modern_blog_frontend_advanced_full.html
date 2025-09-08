@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyBlog — Modern Frontend</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config + dark mode class
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { inter: ["Inter", "ui-sans-serif", "system-ui"] },
+          boxShadow: {
+            soft: "0 10px 30px -12px rgb(0 0 0 / 0.25)",
+            glow: "0 8px 24px -6px rgb(99 102 241 / .5)",
+          },
+          backgroundImage: {
+            'hero-gradient': 'radial-gradient(1200px 500px at 10% -10%, rgba(79,70,229,.35), transparent 60%), radial-gradient(900px 400px at 90% -20%, rgba(236,72,153,.35), transparent 60%), linear-gradient(180deg, #0f172a, #0b1220 60%)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <!-- AOS (scroll animations) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- Swiper (carousel) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    /* Subtle noise for premium feel */
+    .noise { position: relative; }
+    .noise:before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.04; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.45"/></svg>'); }
+    /* Fancy underline hover */
+    .link-underline { background-size: 0 2px; background-image: linear-gradient(currentColor,currentColor); background-repeat: no-repeat; background-position: 0 100%; transition: background-size .3s ease; }
+    .link-underline:hover { background-size: 100% 2px; }
+    /* Hide scrollbar helper */
+    .no-scrollbar::-webkit-scrollbar{ display:none; }
+    .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
+  </style>
+</head>
+
+<body class="font-inter text-slate-100 bg-slate-950 selection:bg-indigo-500/40 selection:text-white">
+  <!-- Navbar (glassmorphism) -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-slate-900/50 bg-slate-900/70 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2">
+          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">MyBlog</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8 text-sm text-slate-200">
+          <a class="link-underline hover:text-white" href="#">Home</a>
+          <a class="link-underline hover:text-white" href="#categories">Categories</a>
+          <a class="link-underline hover:text-white" href="#featured">Featured</a>
+          <a class="link-underline hover:text-white" href="#latest">Latest</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:flex items-center gap-2 rounded-full bg-white/5 ring-1 ring-white/10 px-3 py-1.5">
+            <i class='bx bx-search text-lg text-slate-300'></i>
+            <input class="bg-transparent placeholder:text-slate-400 text-sm focus:outline-none text-slate-100 w-40" placeholder="Search articles..." />
+          </div>
+          <!-- Theme toggle (no design change impact) -->
+          <button id="themeToggle" aria-label="Toggle theme" class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10">
+            <i class='bx bx-moon text-xl' id="moonIcon"></i>
+            <i class='bx bx-sun text-xl hidden' id="sunIcon"></i>
+          </button>
+          <button class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 ring-1 ring-white/10"><i class='bx bx-menu text-2xl'></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="noise bg-hero-gradient pt-28 pb-20 overflow-hidden" id="hero">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div data-aos="fade-right">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200 mb-4">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Fresh insights, weekly
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">
+            Learn, build & grow with
+            <span class="bg-gradient-to-r from-fuchsia-400 via-indigo-400 to-sky-400 bg-clip-text text-transparent">
+              <span id="typed"></span>
+            </span>
+          </h1>
+          <p class="mt-4 text-slate-300 max-w-xl">Actionable tutorials on Laravel, JS, performance, and product thinking — explained with clarity and code samples.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#featured" class="rounded-full px-5 py-2.5 font-semibold shadow-glow bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-sky-500 hover:via-pink-500 hover:to-emerald-400 transition-transform active:scale-95">Explore Featured</a>
+            <a href="#latest" class="rounded-full px-5 py-2.5 font-semibold ring-1 ring-white/15 bg-white/5 hover:bg-white/10">Read Latest</a>
+          </div>
+          <div class="mt-8 flex items-center gap-4 text-sm text-slate-300">
+            <div class="flex -space-x-2">
+              <img class="w-8 h-8 rounded-full ring-2 ring-slate-900" src="https://i.pravatar.cc/32?img=5" alt=""/>
+              <img class="w-8 h-8 rounded-full ring-2 ring-slate-900" src="https://i.pravatar.cc/32?img=7" alt=""/>
+              <img class="w-8 h-8 rounded-full ring-2 ring-slate-900" src="https://i.pravatar.cc/32?img=15" alt=""/>
+            </div>
+            <span>10k+ monthly readers</span>
+          </div>
+        </div>
+        <div class="relative" data-aos="fade-left">
+          <!-- Parallax blobs (no visual change, just depth) -->
+          <div class="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-fuchsia-500/20 blur-2xl will-change-transform" data-rellax data-rellax-speed="2"></div>
+          <div class="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-indigo-500/20 blur-2xl will-change-transform" data-rellax data-rellax-speed="-2"></div>
+          <div class="grid grid-cols-2 gap-4 will-change-transform" data-rellax data-rellax-speed="1.2">
+            <div class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+              <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/600x400/?code,developer" alt="" />
+              <div class="p-4">
+                <p class="text-xs text-slate-300 mb-1">Guide</p>
+                <h3 class="font-semibold">Laravel Eloquent Tips</h3>
+              </div>
+            </div>
+            <div class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+              <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/600x400/?ai,abstract" alt="" />
+              <div class="p-4">
+                <p class="text-xs text-slate-300 mb-1">Opinion</p>
+                <h3 class="font-semibold">AI and Dev Productivity</h3>
+              </div>
+            </div>
+            <div class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+              <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/600x400/?startup,office" alt="" />
+              <div class="p-4">
+                <p class="text-xs text-slate-300 mb-1">Playbook</p>
+                <h3 class="font-semibold">Ship Faster, Smarter</h3>
+              </div>
+            </div>
+            <div class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+              <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/600x400/?design,minimal" alt="" />
+              <div class="p-4">
+                <p class="text-xs text-slate-300 mb-1">Design</p>
+                <h3 class="font-semibold">Minimal UI Patterns</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category chips -->
+      <div id="categories" class="mt-10 flex gap-3 overflow-x-auto no-scrollbar" data-aos="fade-up">
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold ring-1 ring-white/15 bg-white/5 whitespace-nowrap">All</span>
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r from-indigo-500 to-fuchsia-500 whitespace-nowrap">Laravel</span>
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold ring-1 ring-white/15 bg-white/5 whitespace-nowrap">JavaScript</span>
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold ring-1 ring-white/15 bg-white/5 whitespace-nowrap">AI</span>
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold ring-1 ring-white/15 bg-white/5 whitespace-nowrap">DevOps</span>
+        <span class="px-3 py-1.5 rounded-full text-xs font-semibold ring-1 ring-white/15 bg-white/5 whitespace-nowrap">Design</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured (Swiper) -->
+  <section id="featured" class="py-16 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between mb-6">
+        <h2 class="text-2xl sm:text-3xl font-bold">Featured Posts</h2>
+        <div class="text-sm text-slate-300">Handpicked reads</div>
+      </div>
+
+      <div class="swiper mySwiper" data-aos="fade-up">
+        <div class="swiper-wrapper">
+          <!-- Card -->
+          <article class="swiper-slide group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+            <div class="relative">
+              <img class="h-52 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/800x500/?technology,future" alt="" />
+              <span class="absolute top-3 left-3 text-[10px] uppercase tracking-wide px-2 py-1 rounded-full bg-indigo-500/90">AI</span>
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-lg">The Future of AI in Web Dev</h3>
+              <p class="mt-1 text-sm text-slate-300 line-clamp-2">From code generation to smart testing, see how AI is changing our workflow.</p>
+              <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+                <span>7 min read</span>
+                <a href="#" class="text-sky-400 hover:text-sky-300">Read →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="swiper-slide group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+            <div class="relative">
+              <img class="h-52 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/800x500/?code,php" alt="" />
+              <span class="absolute top-3 left-3 text-[10px] uppercase tracking-wide px-2 py-1 rounded-full bg-fuchsia-500/90">Laravel</span>
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-lg">10 Pro Eloquent Patterns</h3>
+              <p class="mt-1 text-sm text-slate-300 line-clamp-2">Practical techniques for performance, readability and maintainability.</p>
+              <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+                <span>6 min read</span>
+                <a href="#" class="text-sky-400 hover:text-sky-300">Read →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="swiper-slide group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+            <div class="relative">
+              <img class="h-52 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/800x500/?startup,growth" alt="" />
+              <span class="absolute top-3 left-3 text-[10px] uppercase tracking-wide px-2 py-1 rounded-full bg-emerald-500/90">Product</span>
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-lg">Shipping Fast Without Chaos</h3>
+              <p class="mt-1 text-sm text-slate-300 line-clamp-2">Processes that help small teams move quickly but safely.</p>
+              <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+                <span>5 min read</span>
+                <a href="#" class="text-sky-400 hover:text-sky-300">Read →</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Posts Grid -->
+  <section id="latest" class="py-16 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between mb-6">
+        <h2 class="text-2xl sm:text-3xl font-bold">Latest</h2>
+        <a href="#" class="text-sky-400 text-sm hover:text-sky-300">View all</a>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Post card -->
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+          <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/800x500/?nature,forest" alt="" />
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-[10px] uppercase tracking-wide">
+              <span class="px-2 py-1 rounded-full bg-emerald-500/90">Guide</span>
+              <span class="text-slate-400">Aug 2025</span>
+            </div>
+            <h3 class="mt-2 font-semibold text-lg">Mastering Caching in Laravel</h3>
+            <p class="mt-1 text-sm text-slate-300 line-clamp-2">Cut your response times in half with these cache strategies.</p>
+            <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+              <span>8 min read</span>
+              <a href="#" class="text-sky-400 hover:text-sky-300">Read →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+          <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/800x500/?books,desk" alt="" />
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-[10px] uppercase tracking-wide">
+              <span class="px-2 py-1 rounded-full bg-fuchsia-500/90">List</span>
+              <span class="text-slate-400">Aug 2025</span>
+            </div>
+            <h3 class="mt-2 font-semibold text-lg">Top 7 Packages for 2025</h3>
+            <p class="mt-1 text-sm text-slate-300 line-clamp-2">These libraries will speed up your next build dramatically.</p>
+            <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+              <span>4 min read</span>
+              <a href="#" class="text-sky-400 hover:text-sky-300">Read →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 shadow-soft">
+          <img class="h-48 w-full object-cover group-hover:scale-105 transition" src="https://source.unsplash.com/800x500/?travel,city" alt="" />
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-[10px] uppercase tracking-wide">
+              <span class="px-2 py-1 rounded-full bg-indigo-500/90">Opinion</span>
+              <span class="text-slate-400">Aug 2025</span>
+            </div>
+            <h3 class="mt-2 font-semibold text-lg">Why DX Matters More Than Ever</h3>
+            <p class="mt-1 text-sm text-slate-300 line-clamp-2">Developer experience can make or break your product velocity.</p>
+            <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+              <span>5 min read</span>
+              <a href="#" class="text-sky-400 hover:text-sky-300">Read →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter CTA -->
+  <section class="py-16 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="zoom-in">
+      <div class="rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-sky-600 shadow-glow">
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold">Get the best posts in your inbox</h3>
+            <p class="mt-2 text-slate-100/90">No spam. Just high-signal reads.</p>
+          </div>
+          <form class="flex w-full gap-3">
+            <input class="w-full rounded-xl px-4 py-3 text-slate-900" type="email" placeholder="Enter your email" />
+            <button class="whitespace-nowrap rounded-xl px-5 py-3 font-semibold bg-slate-900 text-white hover:bg-slate-800">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-slate-400">© 2025 MyBlog. All rights reserved.</p>
+        <div class="flex items-center gap-4 text-xl text-slate-300">
+          <a href="#" class="hover:text-white"><i class='bx bxl-facebook'></i></a>
+          <a href="#" class="hover:text-white"><i class='bx bxl-twitter'></i></a>
+          <a href="#" class="hover:text-white"><i class='bx bxl-github'></i></a>
+          <a href="#" class="hover:text-white"><i class='bx bxl-instagram'></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
+  <!-- Typed.js for hero text -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <!-- GSAP + ScrollTrigger for smooth section reveals -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lenis for smooth scrolling -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+  <!-- Rellax for parallax depth -->
+  <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
+
+  <script>
+    // ---------- THEME (Dark/Light) ----------
+    const THEME_KEY = 'myblog-theme';
+    const root = document.documentElement;
+    function applyTheme(theme){
+      if(theme === 'light'){ root.classList.add('light'); root.classList.remove('dark'); document.body.classList.add('bg-white','text-slate-900'); document.body.classList.remove('bg-slate-950','text-slate-100'); }
+      else { root.classList.add('dark'); root.classList.remove('light'); document.body.classList.add('bg-slate-950','text-slate-100'); document.body.classList.remove('bg-white','text-slate-900'); }
+      // toggle icons
+      document.getElementById('moonIcon').classList.toggle('hidden', theme !== 'dark');
+      document.getElementById('sunIcon').classList.toggle('hidden', theme === 'dark');
+    }
+    const saved = localStorage.getItem(THEME_KEY);
+    const systemPref = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    applyTheme(saved || systemPref);
+    document.getElementById('themeToggle').addEventListener('click', ()=>{
+      const current = root.classList.contains('dark') ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(THEME_KEY, next); applyTheme(next);
+    });
+
+    // Navbar shadow on scroll
+    const nav = document.getElementById('navbar');
+    document.addEventListener('scroll', () => {
+      nav.classList.toggle('shadow-soft', window.scrollY > 10);
+    });
+
+    // AOS
+    AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });
+
+    // Swiper
+    new Swiper('.mySwiper', {
+      loop: true,
+      spaceBetween: 24,
+      slidesPerView: 1.15,
+      centeredSlides: true,
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      breakpoints: { 640: { slidesPerView: 1.5 }, 1024: { slidesPerView: 2.5 } }
+    });
+
+    // Tilt on cards
+    VanillaTilt.init(document.querySelectorAll('.tilt'), {
+      max: 6, speed: 400, glare: true, 'max-glare': 0.15
+    });
+
+    // Typed.js in hero (keeps same design text, just animated)
+    new Typed('#typed', {
+      strings: ['developer-grade articles', 'AI breakthroughs & IT revolutions', 'clean code & performance tips'],
+      typeSpeed: 45,
+      backSpeed: 26,
+      backDelay: 1400,
+      loop: true,
+      smartBackspace: true,
+      showCursor: false
+    });
+
+    // Lenis smooth scrolling
+    const lenis = new Lenis({ duration: 1.1, smoothWheel: true, smoothTouch: false });
+    function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // Rellax parallax (for hero blobs/cards)
+    const rellax = new Rellax('[data-rellax]', { center: true });
+
+    // GSAP reveal animations (non-intrusive)
+    gsap.utils.toArray('#featured .swiper-slide, #latest article').forEach((el)=>{
+      gsap.from(el, { opacity: 0, y: 24, duration: 0.6, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+  </script>
+</body>
+</html>
